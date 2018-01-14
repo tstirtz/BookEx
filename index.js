@@ -9,19 +9,20 @@ function handleSearchButton(){
     console.log(searchInputValue);
 
     requestFromTasteKid(searchInputValue, function(obj){
-      console.log(obj.similar.info.results);
-      if(obj.similar.length() === 0){
-        $(".js-main").append(`<p>Sorry, there are no results for ${searchInputValue}</p>`);
-      }else{
-        const results = $(data.similar.info.results).map(function(result){
-          return result;
-        });
 
-        $(".js-main").append(
-          `<aside role="region">
-            <p>${results}</p>
-          </aside>`
-        );
+      console.log(obj);
+
+      if(obj.Similar.Info.length === 0){
+        $(".js-main").append(`<p>Sorry, there are no results for ${searchInputValue}</p>`);
+      }else {
+        console.log("if statement working");
+        console.log(obj.Similar.Results);
+        const resultItems = obj.Similar.Results.map(function(result){
+          $(".js-main").append(
+            `<aside role="region">
+              <p>${result.Name}</p>
+            </aside>`);
+        });
       }
     });
   });
@@ -55,11 +56,10 @@ function requestFromTasteKid(searchVal, callback){
     type:"books",
     info: 1,
     k:"296844-TylerSti-3Q7R0SNX",
-    dataType: "jsonp",
+    dataType: "jsonp"
   };
 
   $.getJSON(tasteDiveUrl, query, callback);
-  console.log(`${searchVal}`);
 }
 
 
