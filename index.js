@@ -3,20 +3,23 @@ const tasteDiveUrl = "https://tastedive.com/api/similar";
 function handleSearchButton(){
   console.log("start of handleSearchButton working");
   $(".js-search-button").on("click", function(){
-
+    handleNewSearch();
     let searchInputValue= $(this).prev().val();
 
     console.log(searchInputValue);
 
+
     requestFromTasteKid(searchInputValue, function(obj){
 
       console.log(obj);
-
-      if(obj.Similar.Info.length === 0){
+  
+      if(obj.Similar.Results.length === 0){
         $(".js-main").append(`<p>Sorry, there are no results for ${searchInputValue}</p>`);
       }else {
+
         console.log("if statement working");
         console.log(obj.Similar.Results);
+
         const resultItems = obj.Similar.Results.map(function(result){
           $(".js-main").append(
             `<aside role="region">
@@ -35,7 +38,7 @@ function renderBookSuggestions(){
 }
 
 function handleNewSearch(){
-  //when user inputs new search update DOM
+  $(".js-main").empty();
 }
 
 function handleSuggestionClick(){
@@ -56,7 +59,8 @@ function requestFromTasteKid(searchVal, callback){
     type:"books",
     info: 1,
     k:"296844-TylerSti-3Q7R0SNX",
-    dataType: "jsonp"
+    dataType: "jsonp",
+    verbose: 1
   };
 
   $.getJSON(tasteDiveUrl, query, callback);
