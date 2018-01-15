@@ -12,7 +12,7 @@ function handleSearchButton(){
     requestFromTasteKid(searchInputValue, function(obj){
 
       console.log(obj);
-  
+
       if(obj.Similar.Results.length === 0){
         $(".js-main").append(`<p>Sorry, there are no results for ${searchInputValue}</p>`);
       }else {
@@ -60,7 +60,8 @@ function requestFromTasteKid(searchVal, callback){
     info: 1,
     k:"296844-TylerSti-3Q7R0SNX",
     dataType: "jsonp",
-    verbose: 1
+    verbose: 1,
+    crossDomain: true
   };
 
   $.getJSON(tasteDiveUrl, query, callback);
