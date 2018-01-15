@@ -54,7 +54,9 @@ function renderPriceComparisons(){
 }
 
 function requestFromTasteKid(searchVal, callback){
-  const query = {
+
+
+  const settings = {
     q:`${searchVal}`,
     type:"books",
     info: 1,
@@ -64,7 +66,10 @@ function requestFromTasteKid(searchVal, callback){
     crossDomain: true
   };
 
-  $.getJSON(tasteDiveUrl, query, callback);
+  $.getJSON(tasteDiveUrl, settings, callback).fail(function(){
+    console.log(`request failed`);
+    $(".js-main").append("Sorry, your search failed. Please try again.");
+  });
 }
 
 
