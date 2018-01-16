@@ -24,20 +24,21 @@ function handleSearchButton(){
         console.log(obj.Similar.Results);
 
         const resultItems = obj.Similar.Results.map(function(result){
-          $(".js-main").append(
-            `<aside role="region">
-              <p>${result.Name}</p>
-            </aside>`);
+          const bookSuggestionName = result.Name;
 
-            const bookSuggestionName = result.Name;
-            requestFromGoogleBooks(bookSuggestionName, function(resultObj){
-              console.log(resultObj);//5th call to result.Name possible reason why this console.log starts on the 6th result?
+          requestFromGoogleBooks(bookSuggestionName, function(resultObj){
+            console.log(resultObj);//5th call to result.Name possible reason why this console.log starts on the 6th result?
 
-              
+            $(".js-book-suggestions").append(
+              `<a href="#"><p>${bookSuggestionName}</p></a>
+               <a href="#"><img src="${resultObj['items'][0]['volumeInfo']['imageLinks']['smallThumbnail']}"></a>
+              `);
+
             });
         });
       }
     });
+    clearSearchInput();
   });
   console.log("end of handleSearchButton working");
 }
@@ -48,7 +49,11 @@ function renderBookSuggestions(){
 }
 
 function handleNewSearch(){
-  $(".js-main").empty();
+  $(".js-book-suggestions").empty();
+}
+
+function clearSearchInput(){
+  $(".js-book-search-input").val('');
 }
 
 function handleSuggestionClick(){
