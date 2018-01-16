@@ -12,15 +12,18 @@
         <fieldset>
           <!--How important is a legend for accessiblity, I really don't want it to be displayed-->
           <label for="start-page-search">Get Book Suggestions</label>
-          <input type="text" name="book-search-query" placeholder="Book title" id="book-search-query">
+          <input type="text" name="book-search-query" placeholder="Book title" id="book-search-query" class="js-book-search-input">
           <button type="button" class="js-search-button">Search</button>
         </fieldset>
       </form>
     </section>
     <main role="main" class="js-main">
+      <section role="region" class="js-book-suggestions">
 
+      </section>
     </main>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="config.js"></script>
     <script type="text/javascript" src="index.js"></script>
   </body>
 </html>
