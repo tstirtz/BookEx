@@ -1,4 +1,5 @@
 const tasteDiveUrl = "https://tastedive.com/api/similar";
+const googleBooksUrl = "https://www.googleapis.com/books/v1/volumes";
 let googleKey = keys.googleBooks;
 let tasteKey = keys.tasteDive;
 
@@ -27,6 +28,13 @@ function handleSearchButton(){
             `<aside role="region">
               <p>${result.Name}</p>
             </aside>`);
+
+            const bookSuggestionName = result.Name;
+            requestFromGoogleBooks(bookSuggestionName, function(resultObj){
+              console.log(resultObj);//5th call to result.Name possible reason why this console.log starts on the 6th result?
+
+              
+            });
         });
       }
     });
@@ -65,7 +73,8 @@ function requestFromTasteKid(searchVal, callback){
     k: tasteKey,
     dataType: "jsonp",
     verbose: 1,
-    crossDomain: true
+    crossDomain: true,
+    limit: 10
   };
 
   $.getJSON(tasteDiveUrl, settings, callback).fail(function(){
@@ -74,9 +83,21 @@ function requestFromTasteKid(searchVal, callback){
   });
 }
 
-function requestFromGoogleBooks(searchQuery, callback){
+function requestFromGoogleBooks(searchVal, callback){
   //make call to Google Books api to get book cover images
+  console.log(searchVal);
+  const requestSetting={
+    q: `${searchVal}`,
+    intitle: `${searchVal}`,
+    key: googleKey,
+    //orderBy: "relevance",
+    maxResults: 1
+  };
+
+  $.getJSON(googleBooksUrl, requestSetting, callback);
+
 }
+
 
 
 
