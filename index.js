@@ -1,4 +1,6 @@
 const tasteDiveUrl = "https://tastedive.com/api/similar";
+let googleKey = keys.googleBooks;
+let tasteKey = keys.tasteDive;
 
 function handleSearchButton(){
   console.log("start of handleSearchButton working");
@@ -54,13 +56,13 @@ function renderPriceComparisons(){
 }
 
 function requestFromTasteKid(searchVal, callback){
-
+//Next Step: set an environment variable for api keys
 
   const settings = {
     q:`${searchVal}`,
     type:"books",
     info: 1,
-    k:"296844-TylerSti-3Q7R0SNX",
+    k: tasteKey,
     dataType: "jsonp",
     verbose: 1,
     crossDomain: true
@@ -70,6 +72,10 @@ function requestFromTasteKid(searchVal, callback){
     console.log(`request failed`);
     $(".js-main").append("Sorry, your search failed. Please try again.");
   });
+}
+
+function requestFromGoogleBooks(searchQuery, callback){
+  //make call to Google Books api to get book cover images
 }
 
 
