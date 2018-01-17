@@ -1,5 +1,6 @@
 const tasteDiveUrl = "https://tastedive.com/api/similar";
 const googleBooksUrl = "https://www.googleapis.com/books/v1/volumes";
+const amazonProductAddUrl ="http://webservices.amazon.com/";
 let googleKey = keys.googleBooks;
 let tasteKey = keys.tasteDive;
 
@@ -102,6 +103,20 @@ function requestFromGoogleBooks(searchVal, callback){
   $.getJSON(googleBooksUrl, requestSetting, callback);
 
 }
+
+function requestFromAmazonProdAdd(suggestionTitle, callback){
+  const data={
+    'Operation': "ItemSearch",
+    'SearchIndex': "Books",
+    'Title': `${suggestionTitle}`,
+    'AWSAccessKeyId': "AKIAJQQUF3FC3OQGX4IQ",
+    'AssociateTag': "tswebdev-20",
+    'Condition': "used",
+  };
+
+  $.get(amazonProductAddUrl, data, callback);
+}
+
 
 
 
