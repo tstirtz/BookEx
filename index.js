@@ -23,14 +23,14 @@ function handleSearchButton(){
       }else {
 
         console.log("if statement working");
-        console.log(obj.Similar.Results);
+        console.log("Related book suggestions from TasteDive" + obj.Similar.Results);
 
         const resultItems = obj.Similar.Results.map(function(result){
 
           const bookSuggestionName = result.Name;
           const removeComma = bookSuggestionName.replace(/\'/, '');
           const encBookName = encodeURIComponent(removeComma);
-          console.log(encBookName);
+
 
           requestFromGoogleBooks(bookSuggestionName, function(resultObj){
             console.log(resultObj);
@@ -121,45 +121,30 @@ function requestFromAmazonProdAdd(suggestionTitle, callback){
   let dateISO = (dt.toISOString());
   let dateMinusMilliSec = dateISO.replace(/\.[0-9]{3}/, '');
   let encodedUtcDate = encodeURIComponent(dateMinusMilliSec);
-  console.log(dateMinusMilliSec);
-  console.log(encodedUtcDate);
+
+  console.log("encoded time stamp = " + encodedUtcDate);
 
   let awsUrlForSignature=
 `GET
 webservices.amazon.com
 /onca/xml
-AWSAccessKeyId=AKIAIT77JNW5XRPHZTYA&AssociateTag=tswebdev-20&Keywords=${suggestionTitle}&Operation=ItemSearch&ResponseGroup=ItemAttributes&SearchIndex=Books&Service=AWSECommerceService&Timestamp=${encodedUtcDate}&Title=${suggestionTitle}`;
+AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Condition=Used&Keywords=${suggestionTitle}&Operation=ItemSearch&ResponseGroup=ItemAttributes%2COffers%2COfferSummary&SearchIndex=Books&Service=AWSECommerceService&Sort=relevancerank&Timestamp=${encodedUtcDate}&Title=${suggestionTitle}`;
 
-  console.log(awsUrlForSignature);
-  /*let data = {
-    'AWSAccessKeyId': "AKIAJQQUF3FC3OQGX4IQ",
-    'AssociateTag': "tswebdev-20",
-    'Keywords': `${suggestionTitle}`,
-    'Operation': "ItemSearch",
-    'Service': "AWSECommerceService",
-    'ResponseGroup': "ItemAttributes",
-    'SearchIndex': "Books",
-    'Title': `${suggestionTitle}`,
-    'Condition': "used",
-  };*/
-  const secretKey = "JtQv7elJJJhyk9JjgphYa0kZihzp5SutjaOVcj9Y";
 
-  //const secretKeyEncoded = encodeURIComponent(secretKey);
-
-  var signature1 = CryptoJS.HmacSHA256(awsUrlForSignature, secretKey);
+  var signature1 = CryptoJS.HmacSHA256(awsUrlForSignature, keys.secretKey);
 
   let sigBase64 = signature1.toString(CryptoJS.enc.Base64);
   let encodedSig = encodeURIComponent(sigBase64);
 
 
-    let awsUrl = `http://webservices.amazon.com/onca/xml?AWSAccessKeyId=AKIAIT77JNW5XRPHZTYA&AssociateTag=tswebdev-20&Keywords=${suggestionTitle}&Operation=ItemSearch&ResponseGroup=ItemAttributes&SearchIndex=Books&Service=AWSECommerceService&Timestamp=${encodedUtcDate}&Title=${suggestionTitle}&Signature=${encodedSig}`;
+    let awsUrl = `http://webservices.amazon.com/onca/xml?AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Condition=Used&Keywords=${suggestionTitle}&Operation=ItemSearch&ResponseGroup=ItemAttributes%2COffers%2COfferSummary&SearchIndex=Books&Service=AWSECommerceService&Sort=relevancerank&Timestamp=${encodedUtcDate}&Title=${suggestionTitle}&Signature=${encodedSig}`;
 
-    console.log(awsUrl);
+
 
   $.ajax({
     url: awsUrl,
-    dataType: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
-
+    dataType: "xml",
+    success: callback
   });
 }
 
