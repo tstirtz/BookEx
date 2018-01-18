@@ -1,6 +1,7 @@
+/// <reference types="aws-sdk" />
 const tasteDiveUrl = "https://tastedive.com/api/similar";
 const googleBooksUrl = "https://www.googleapis.com/books/v1/volumes";
-const amazonProductAddUrl ="http://webservices.amazon.com/";
+const amazonProductAddUrl ="http://webservices.amazon.com/onca/xml";
 let googleKey = keys.googleBooks;
 let tasteKey = keys.tasteDive;
 
@@ -25,10 +26,20 @@ function handleSearchButton(){
         console.log(obj.Similar.Results);
 
         const resultItems = obj.Similar.Results.map(function(result){
+
           const bookSuggestionName = result.Name;
+          const removeComma = bookSuggestionName.replace(/\'/, '');
+          const encBookName = encodeURIComponent(removeComma);
+          console.log(encBookName);
 
           requestFromGoogleBooks(bookSuggestionName, function(resultObj){
-            console.log(resultObj);//5th call to result.Name possible reason why this console.log starts on the 6th result?
+            console.log(resultObj);
+
+            requestFromAmazonProdAdd(encBookName, function(requestObj){
+              console.log(requestObj);
+
+            });
+
 
             $(".js-book-suggestions").append(
               `<a href="#"><p>${bookSuggestionName}</p></a>
@@ -105,17 +116,53 @@ function requestFromGoogleBooks(searchVal, callback){
 }
 
 function requestFromAmazonProdAdd(suggestionTitle, callback){
-  const data={
-    'Operation': "ItemSearch",
-    'SearchIndex': "Books",
-    'Title': `${suggestionTitle}`,
+
+  let dt = new Date();
+  let dateISO = (dt.toISOString());
+  let dateMinusMilliSec = dateISO.replace(/\.[0-9]{3}/, '');
+  let encodedUtcDate = encodeURIComponent(dateMinusMilliSec);
+  console.log(dateMinusMilliSec);
+  console.log(encodedUtcDate);
+
+  let awsUrlForSignature=
+`GET
+webservices.amazon.com
+/onca/xml
+AWSAccessKeyId=AKIAIT77JNW5XRPHZTYA&AssociateTag=tswebdev-20&Keywords=${suggestionTitle}&Operation=ItemSearch&ResponseGroup=ItemAttributes&SearchIndex=Books&Service=AWSECommerceService&Timestamp=${encodedUtcDate}&Title=${suggestionTitle}`;
+
+  console.log(awsUrlForSignature);
+  /*let data = {
     'AWSAccessKeyId': "AKIAJQQUF3FC3OQGX4IQ",
     'AssociateTag': "tswebdev-20",
+    'Keywords': `${suggestionTitle}`,
+    'Operation': "ItemSearch",
+    'Service': "AWSECommerceService",
+    'ResponseGroup': "ItemAttributes",
+    'SearchIndex': "Books",
+    'Title': `${suggestionTitle}`,
     'Condition': "used",
-  };
+  };*/
+  const secretKey = "JtQv7elJJJhyk9JjgphYa0kZihzp5SutjaOVcj9Y";
 
-  $.get(amazonProductAddUrl, data, callback);
+  //const secretKeyEncoded = encodeURIComponent(secretKey);
+
+  var signature1 = CryptoJS.HmacSHA256(awsUrlForSignature, secretKey);
+
+  let sigBase64 = signature1.toString(CryptoJS.enc.Base64);
+  let encodedSig = encodeURIComponent(sigBase64);
+
+
+    let awsUrl = `http://webservices.amazon.com/onca/xml?AWSAccessKeyId=AKIAIT77JNW5XRPHZTYA&AssociateTag=tswebdev-20&Keywords=${suggestionTitle}&Operation=ItemSearch&ResponseGroup=ItemAttributes&SearchIndex=Books&Service=AWSECommerceService&Timestamp=${encodedUtcDate}&Title=${suggestionTitle}&Signature=${encodedSig}`;
+
+    console.log(awsUrl);
+
+  $.ajax({
+    url: awsUrl,
+    dataType: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8",
+
+  });
 }
+
 
 
 
