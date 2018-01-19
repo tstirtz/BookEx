@@ -23,14 +23,15 @@ function handleSearchButton(){
       }else {
 
         console.log("if statement working");
-        console.log("Related book suggestions from TasteDive" + obj.Similar.Results);
+        console.log(obj.Similar.Results);
 
-        const resultItems = obj.Similar.Results.map(function(result){
+        const resultItems = obj.Similar.Results.map(function(result, index){
 
           const bookSuggestionName = result.Name;
+          const bookSynopsis = result.wTeaser;
           const removeComma = bookSuggestionName.replace(/\'/, '');
           const encBookName = encodeURIComponent(removeComma);
-
+          console.log(index);
 
           requestFromGoogleBooks(bookSuggestionName, function(resultObj){
             console.log(resultObj);
@@ -42,13 +43,15 @@ function handleSearchButton(){
 
 
             $(".js-book-suggestions").append(
-              `<a href="#"><p>${bookSuggestionName}</p></a>
-               <a href="#"><img src="${resultObj['items'][0]['volumeInfo']['imageLinks']['smallThumbnail']}"></a>
+              `<a href="#" class="${index}"><p>${bookSuggestionName}</p></a>
+               <a href="#" class="${index}""><img src="${resultObj['items'][0]['volumeInfo']['imageLinks']['smallThumbnail']}"></a>
               `);
 
             });
+
         });
       }
+      handleSuggestionClick(obj);
     });
     clearSearchInput();
   });
@@ -68,8 +71,24 @@ function clearSearchInput(){
   $(".js-book-search-input").val('');
 }
 
-function handleSuggestionClick(){
-  //book suggestion is clicked
+//what is the convention for using the same name for arguments?
+function handleSuggestionClick(objWithSynopsis){
+  //book suggestion or title link is clicked
+  $(".js-book-suggestions").on('click', "a", function(){
+    console.log("start of handleSuggestionClick working");
+    $(".js-book-suggestions").empty();
+
+    let clickedBook = parseInt($(this).attr("class"));
+    console.log(objWithSynopsis);
+    console.log(typeof clickedBook);
+    let synopsis = objWithSynopsis["Similar"]["Results"][clickedBook]["wTeaser"];
+
+
+
+    $(".js-book-suggestions").append("<p>" + synopsis + "</p>");
+
+    console.log("end of handleSuggestionClick working");
+  });
 }
 
 function requestForPrices(){
