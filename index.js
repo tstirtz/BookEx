@@ -18,8 +18,8 @@ function handleSearchButton(){
 
       console.log(obj);
 
-      if(obj.Similar.Results.length === 0){
-        $(".js-main").append(`<p>Sorry, there are no results for ${searchInputValue}</p>`);
+      if(searchInputValue.length === 0){
+        $(".js-main").append(`<p>Sorry, please enter a book to be searched.</p>`);
       }else {
 
         console.log("if statement working");
