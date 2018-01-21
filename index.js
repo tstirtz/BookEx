@@ -34,11 +34,15 @@ function handleSearchButton(){
           console.log(index);
 
           requestFromGoogleBooks(bookSuggestionName, function(resultObj){
+            console.log("start of requestFromGoogleBooks working");
             console.log(resultObj);
+            console.log("end of requestFromGoogleBooks working");
 
             requestFromAmazonProdAdd(encBookName, function(requestObj){
+              console.log("start of requestFromAmazonProdAdd working");
               console.log(requestObj);
-
+              handleSuggestionClick(obj, requestObj);
+              console.log("end of requestFromAmazonProdAdd working");
             });
 
 
@@ -51,7 +55,6 @@ function handleSearchButton(){
 
         });
       }
-      handleSuggestionClick(obj);
     });
     clearSearchInput();
   });
@@ -72,27 +75,36 @@ function clearSearchInput(){
 }
 
 //what is the convention for using the same name for arguments?
-function handleSuggestionClick(objWithSynopsis){
+function handleSuggestionClick(objWithSynopsis, amazonData){
   //book suggestion or title link is clicked
   $(".js-book-suggestions").on('click', "a", function(){
+
     console.log("start of handleSuggestionClick working");
+
     $(".js-book-suggestions").empty();
 
     let clickedBook = parseInt($(this).attr("class"));
     console.log(objWithSynopsis);
-    console.log(typeof clickedBook);
+
     let synopsis = objWithSynopsis["Similar"]["Results"][clickedBook]["wTeaser"];
-
-
 
     $(".js-book-suggestions").append("<p>" + synopsis + "</p>");
 
+    console.log(amazonData);
+
+    let allOffersUrl = amazonData.getElementsByTagName("ItemLinks")[0].childNodes[6].childNodes[1].childNodes[0].nodeValue;
+    console.log(allOffersUrl);
+
+    requestToAmazonForUsedPrices(allOffersUrl);
+
     console.log("end of handleSuggestionClick working");
+
   });
 }
 
-function requestForPrices(){
-  //when book suggestion is clicked make call to Direct Textbook api
+function requestToAmazonForUsedPrices(url){
+  //when book suggestion is clicked make call to amazon offer listing url api
+
 }
 
 function renderPriceComparisons(){
@@ -141,7 +153,6 @@ function requestFromAmazonProdAdd(suggestionTitle, callback){
   let dateMinusMilliSec = dateISO.replace(/\.[0-9]{3}/, '');
   let encodedUtcDate = encodeURIComponent(dateMinusMilliSec);
 
-  console.log("encoded time stamp = " + encodedUtcDate);
 
   let awsUrlForSignature=
 `GET
