@@ -13,21 +13,21 @@ function handleSearchButton(){
   console.log("start of handleSearchButton working");
 
   $(".js-search-button").on("click", function(){
+    event.stopPropagation();
     handleNewSearch();
     let searchInputValue= $(this).prev().val();
 
     console.log(searchInputValue);
 
+    handleNewSearch();
 
     requestFromTasteKid(searchInputValue, function(obj){
-
       console.log(obj);
 
       if(searchInputValue.length === 0){
         $(".js-main").append(`<p>Sorry, please enter a book to be searched.</p>`);
       }else {
 
-        console.log("if statement working");
         console.log(obj.Similar.Results);
 
         handleSuggestionClick(obj);
@@ -73,6 +73,7 @@ function renderBookSuggestions(){
 
 function handleNewSearch(){
   $(".js-book-suggestions").empty();
+  $(".js-sale-info").empty();
 }
 
 function clearSearchInput(){
@@ -86,13 +87,14 @@ function handleSuggestionClick(tasteDiveObj){
   //book suggestion or title link is clicked
   $(".js-book-suggestions").on('click', "a", function(){
       console.log("start of handleSuggestionClick working");
+      event.stopPropagation();
 
-    $(".js-book-suggestions").empty();
+    handleNewSearch();
 
     let clickedBook = parseInt($(this).attr("class")); //changes class attribute type to number to be used as an index
     console.log(tasteDiveObj);
 
-    let clickedEncodedTitle = $(this).attr("id");//get IDs of the clicked links to be passed
+    let clickedEncodedTitle = $(this).attr("id");//get ID value, which is the encoded title, of the clicked links to be passed
     console.log(clickedEncodedTitle);
 
     requestFromAmazonProdAdd(clickedEncodedTitle);
@@ -112,12 +114,8 @@ function handleSuggestionClick(tasteDiveObj){
 function getPricesOfClickedBook(amazonData){
     console.log("start of getPricesOfClickedBook working");
 
-
     let allOffersUrl = amazonData.getElementsByTagName("ItemLinks")[0].childNodes[6].childNodes[1].childNodes[0].nodeValue;
-
-
-    console.log(allOffersUrl);
-
+      console.log(allOffersUrl);
 
     requestToAmazonForUsedPrices(allOffersUrl);
 
@@ -147,6 +145,7 @@ function requestToAmazonForUsedPrices(pricesUrl){
       htmlDoc = parser.parseFromString(data, 'text/html')
       console.log(htmlDoc);
 
+      $(".js-sale-info").empty();
 
       //get the offer ID's for the used book offers
       let offerIds = htmlDoc.getElementsByName("offeringID.1");
@@ -283,7 +282,7 @@ AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Con
       console.log("end of requestFromAmazonProdAdd working");
     }
   });
-  //handleSuggestionClick(obj, requestObj);
+
 }
 
 
