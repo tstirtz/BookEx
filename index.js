@@ -45,7 +45,7 @@ function handleSearchButton(){
             console.log(resultObj);
             console.log("end of requestFromGoogleBooks working");
 
-            
+
 
 
             $(".js-book-suggestions").append(
@@ -108,13 +108,12 @@ function handleSuggestionClick(tasteDiveObj){
 
 function getPricesOfClickedBook(amazonData){
     console.log("start of getPricesOfClickedBook working");
-    console.log(amazonData);
+
 
     let allOffersUrl = amazonData.getElementsByTagName("ItemLinks")[0].childNodes[6].childNodes[1].childNodes[0].nodeValue;
 
-    let clickedEncodedTitle = $(this).attr("id");//get IDs of the clicked links to be passed
 
-    console.log(clickedEncodedTitle);
+    console.log(allOffersUrl);
 
 
     requestToAmazonForUsedPrices(allOffersUrl);
@@ -233,6 +232,7 @@ AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Con
     success: function(requestObj){
       console.log("start of requestFromAmazonProdAdd working");
       console.log(requestObj);
+      getPricesOfClickedBook(requestObj);
       console.log("end of requestFromAmazonProdAdd working");
     }
   });
