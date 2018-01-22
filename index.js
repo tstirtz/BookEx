@@ -161,23 +161,27 @@ function requestToAmazonForUsedPrices(pricesUrl){
         console.log(priceInfo[index]['innerHTML']);
         let bookPrices = priceInfo[index]['innerHTML'];
         $(".js-sale-info").append(
-          `<div>
+          `<div class= "${index}">
             <span>${bookPrices}</span>
           </div>`
         );
       });
 
       //retrieve shipping cost info
-      let shippingCost= htmlDoc.getElementsByClassName("olpShippingInfo");
-      $.each(shippingCost, function(index){
-        console.log(shippingCost[index]['firstChild']['nextElementSibling']['children'][0]['innerText']);
+      let shippingData= htmlDoc.getElementsByClassName("olpShippingInfo");
+      $.each(shippingData, function(index){
+        let shippingCost = shippingData[index]['firstChild']['nextElementSibling']['children'][0]['innerText'];
+        console.log(shippingCost);
+        $(`.${index}`).append(`<span>Shipping: ${shippingCost}</span>`);
       });
 
       //retrieve shipping dates
       let shippingDates= htmlDoc.getElementsByClassName("olpAvailabilityExpander");
       $.each(shippingDates, function(index){
-        console.log(shippingDates[index]['children'][0]['childNodes'][2]['data']);
-        console.log(shippingDates);
+        let estimatedShipping = shippingDates[index]['children'][0]['childNodes'][2]['data'];
+        console.log(estimatedShipping);
+
+        $(`.${index}`).append(`<span> Estimated Shipping Data ${estimatedShipping}</span>`);
       });
 
 
