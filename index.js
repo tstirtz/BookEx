@@ -170,7 +170,13 @@ function requestToAmazonForUsedPrices(pricesUrl){
       $.each(shippingCost, function(index){
         console.log(shippingCost[index]['firstChild']['nextElementSibling']['children'][0]['innerText']);
       });
-      console.log(shippingCost);
+
+      //retrieve shipping dates
+      let shippingDates= htmlDoc.getElementsByClassName("olpAvailabilityExpander");
+      $.each(shippingDates, function(index){
+        console.log(shippingDates[index]['children'][0]['childNodes'][2]['data']);
+      });
+      console.log(shippingDates);
 
 
     },
