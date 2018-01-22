@@ -149,20 +149,22 @@ function requestToAmazonForUsedPrices(pricesUrl){
 
 
       //get the offer ID's for the used book offers
-      let offerId = htmlDoc.getElementsByName("offeringID.1");
-      $.each(offerId, function(index, value){
-        console.log(offerId[index]['value']);
+      let offerIds = htmlDoc.getElementsByName("offeringID.1");
+      $.each(offerIds, function(index, value){
+        console.log(offerIds[index]['value']);
+        let offerIdValue = offerIds[index]['value'];
       });
-//NEXT STEP: Research more about adding items to cart and then create button to add item to cart, then get and display more info //about the item(price + shipping, seller)
-      console.log(offerId);
 
+      //retrieve price of used books
       let priceInfo= htmlDoc.getElementsByClassName("olpOfferPrice");
-      console.log(priceInfo);
-
-
-      //console.log(priceInfo[0]['innerHTML']);
       $.each(priceInfo, function(index, value){
         console.log(priceInfo[index]['innerHTML']);
+        let bookPrices = priceInfo[index]['innerHTML'];
+        $(".js-sale-info").append(
+          `<div>
+            <span>${bookPrices}</span>
+          </div>`
+        );
       });
 
       //retrieve shipping cost info
@@ -175,8 +177,9 @@ function requestToAmazonForUsedPrices(pricesUrl){
       let shippingDates= htmlDoc.getElementsByClassName("olpAvailabilityExpander");
       $.each(shippingDates, function(index){
         console.log(shippingDates[index]['children'][0]['childNodes'][2]['data']);
+        console.log(shippingDates);
       });
-      console.log(shippingDates);
+
 
 
     },
