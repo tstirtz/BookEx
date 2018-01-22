@@ -144,6 +144,14 @@ function requestToAmazonForUsedPrices(pricesUrl){
       htmlDoc = parser.parseFromString(data, 'text/html')
       console.log(htmlDoc);
 
+      //get the offer ID's for the used book offers
+      let offerId = htmlDoc.getElementsByName("offeringID.1");
+      $.each(offerId, function(index, value){
+        console.log(offerId[index]['value']);
+      });
+
+      console.log(offerId);
+
       let priceInfo= htmlDoc.getElementsByClassName("olpOfferPrice");
       console.log(priceInfo);
 
