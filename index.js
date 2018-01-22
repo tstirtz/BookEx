@@ -102,9 +102,39 @@ function handleSuggestionClick(objWithSynopsis, amazonData){
   });
 }
 
-function requestToAmazonForUsedPrices(url){
+function requestToAmazonForUsedPrices(pricesUrl){
   //when book suggestion is clicked make call to amazon offer listing url api
+  console.log("start of requestToAmazonForUsedPrices working");
 
+
+  $.ajax({
+    url: pricesUrl,
+    type: 'POST',
+    contentType: "text/plain; charset=utf-8",
+    dataType: 'text',
+    //data: data,
+    processData: false,
+    success: function(data){
+
+      parser= new DOMParser();
+      htmlDoc = parser.parseFromString(data, 'text/html')
+      console.log(htmlDoc);
+      let priceInfo= htmlDoc.getElementsByClassName("olpOfferPrice");
+      console.log(priceInfo);
+    
+
+      //console.log(priceInfo[0]['innerHTML']);
+      $.each(priceInfo, function(index, value){
+        console.log(priceInfo[index]['innerHTML']);
+      });
+
+
+    },
+    error: function(){
+      console.log("cannot get data");
+    }
+  });
+  console.log("start of requestToAmazonForUsedPrices working");
 }
 
 function renderPriceComparisons(){
