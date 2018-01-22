@@ -5,8 +5,13 @@ const amazonProductAddUrl ="http://webservices.amazon.com/onca/xml";
 let googleKey = keys.googleBooks;
 let tasteKey = keys.tasteDive;
 
+
+
+
 function handleSearchButton(){
+
   console.log("start of handleSearchButton working");
+
   $(".js-search-button").on("click", function(){
     handleNewSearch();
     let searchInputValue= $(this).prev().val();
@@ -25,6 +30,8 @@ function handleSearchButton(){
         console.log("if statement working");
         console.log(obj.Similar.Results);
 
+        handleSuggestionClick(obj);
+
         const resultItems = obj.Similar.Results.map(function(result, index){
 
           const bookSuggestionName = result.Name;
@@ -38,17 +45,12 @@ function handleSearchButton(){
             console.log(resultObj);
             console.log("end of requestFromGoogleBooks working");
 
-            requestFromAmazonProdAdd(encBookName, function(requestObj){
-              console.log("start of requestFromAmazonProdAdd working");
-              console.log(requestObj);
-              handleSuggestionClick(obj, requestObj);
-              console.log("end of requestFromAmazonProdAdd working");
-            });
+            
 
 
             $(".js-book-suggestions").append(
-              `<a href="#" class="${index}"><p>${bookSuggestionName}</p></a>
-               <a href="#" class="${index}""><img src="${resultObj['items'][0]['volumeInfo']['imageLinks']['smallThumbnail']}"></a>
+              `<a href="#" class="${index}" id= "${encBookName}"><p>${bookSuggestionName}</p></a>
+               <a href="#" class="${index}" id= "${encBookName}"><img src="${resultObj['items'][0]['volumeInfo']['imageLinks']['smallThumbnail']}"></a>
               `);
 
             });
@@ -74,33 +76,56 @@ function clearSearchInput(){
   $(".js-book-search-input").val('');
 }
 
-//what is the convention for using the same name for arguments?
-function handleSuggestionClick(objWithSynopsis, amazonData){
+
+
+
+function handleSuggestionClick(tasteDiveObj){
   //book suggestion or title link is clicked
   $(".js-book-suggestions").on('click', "a", function(){
-
-    console.log("start of handleSuggestionClick working");
+      console.log("start of handleSuggestionClick working");
 
     $(".js-book-suggestions").empty();
 
-    let clickedBook = parseInt($(this).attr("class"));
-    console.log(objWithSynopsis);
+    let clickedBook = parseInt($(this).attr("class")); //changes class attribute type to number to be used as an index
+    console.log(tasteDiveObj);
 
-    let synopsis = objWithSynopsis["Similar"]["Results"][clickedBook]["wTeaser"];
+    let clickedEncodedTitle = $(this).attr("id");//get IDs of the clicked links to be passed
+    console.log(clickedEncodedTitle);
+
+    requestFromAmazonProdAdd(clickedEncodedTitle);
+
+    let synopsis = tasteDiveObj["Similar"]["Results"][clickedBook]["wTeaser"];
 
     $(".js-book-suggestions").append("<p>" + synopsis + "</p>");
 
+    console.log("end of handleSuggestionClick working");
+  });
+}
+
+
+
+
+
+function getPricesOfClickedBook(amazonData){
+    console.log("start of getPricesOfClickedBook working");
     console.log(amazonData);
 
     let allOffersUrl = amazonData.getElementsByTagName("ItemLinks")[0].childNodes[6].childNodes[1].childNodes[0].nodeValue;
-    console.log(allOffersUrl);
+
+    let clickedEncodedTitle = $(this).attr("id");//get IDs of the clicked links to be passed
+
+    console.log(clickedEncodedTitle);
+
 
     requestToAmazonForUsedPrices(allOffersUrl);
 
-    console.log("end of handleSuggestionClick working");
-
-  });
+    console.log("end of getPricesOfClickedBook working");
 }
+
+
+
+
+
 
 function requestToAmazonForUsedPrices(pricesUrl){
   //when book suggestion is clicked make call to amazon offer listing url api
@@ -119,9 +144,10 @@ function requestToAmazonForUsedPrices(pricesUrl){
       parser= new DOMParser();
       htmlDoc = parser.parseFromString(data, 'text/html')
       console.log(htmlDoc);
+
       let priceInfo= htmlDoc.getElementsByClassName("olpOfferPrice");
       console.log(priceInfo);
-    
+
 
       //console.log(priceInfo[0]['innerHTML']);
       $.each(priceInfo, function(index, value){
@@ -134,7 +160,7 @@ function requestToAmazonForUsedPrices(pricesUrl){
       console.log("cannot get data");
     }
   });
-  console.log("start of requestToAmazonForUsedPrices working");
+  console.log("end of requestToAmazonForUsedPrices working");
 }
 
 function renderPriceComparisons(){
@@ -176,7 +202,7 @@ function requestFromGoogleBooks(searchVal, callback){
 
 }
 
-function requestFromAmazonProdAdd(suggestionTitle, callback){
+function requestFromAmazonProdAdd(suggestionTitle){
 
   let dt = new Date();
   let dateISO = (dt.toISOString());
@@ -204,8 +230,13 @@ AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Con
   $.ajax({
     url: awsUrl,
     dataType: "xml",
-    success: callback
+    success: function(requestObj){
+      console.log("start of requestFromAmazonProdAdd working");
+      console.log(requestObj);
+      console.log("end of requestFromAmazonProdAdd working");
+    }
   });
+  //handleSuggestionClick(obj, requestObj);
 }
 
 
