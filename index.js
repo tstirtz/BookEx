@@ -64,6 +64,9 @@ function handleSearchButton(){
 }
 
 
+
+
+
 function renderBookSuggestions(){
   //append results to html
 }
@@ -144,12 +147,13 @@ function requestToAmazonForUsedPrices(pricesUrl){
       htmlDoc = parser.parseFromString(data, 'text/html')
       console.log(htmlDoc);
 
+
       //get the offer ID's for the used book offers
       let offerId = htmlDoc.getElementsByName("offeringID.1");
       $.each(offerId, function(index, value){
         console.log(offerId[index]['value']);
       });
-
+//NEXT STEP: Research more about adding items to cart and then create button to add item to cart, then get and display more info //about the item(price + shipping, seller)
       console.log(offerId);
 
       let priceInfo= htmlDoc.getElementsByClassName("olpOfferPrice");
@@ -161,6 +165,13 @@ function requestToAmazonForUsedPrices(pricesUrl){
         console.log(priceInfo[index]['innerHTML']);
       });
 
+      //retrieve shipping cost info
+      let shippingCost= htmlDoc.getElementsByClassName("olpShippingInfo");
+      $.each(shippingCost, function(index){
+        console.log(shippingCost[index]['firstChild']['nextElementSibling']['children'][0]['innerText']);
+      });
+      console.log(shippingCost);
+
 
     },
     error: function(){
@@ -170,9 +181,16 @@ function requestToAmazonForUsedPrices(pricesUrl){
   console.log("end of requestToAmazonForUsedPrices working");
 }
 
+
+
+
 function renderPriceComparisons(){
   //update DOM with prices comparisons
 }
+
+
+
+
 
 function requestFromTasteKid(searchVal, callback){
 //Next Step: set an environment variable for api keys
@@ -194,6 +212,10 @@ function requestFromTasteKid(searchVal, callback){
   });
 }
 
+
+
+
+
 function requestFromGoogleBooks(searchVal, callback){
   //make call to Google Books api to get book cover images
   console.log(searchVal);
@@ -208,6 +230,10 @@ function requestFromGoogleBooks(searchVal, callback){
   $.getJSON(googleBooksUrl, requestSetting, callback);
 
 }
+
+
+
+
 
 function requestFromAmazonProdAdd(suggestionTitle){
 
