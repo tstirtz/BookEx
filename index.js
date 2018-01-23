@@ -179,14 +179,14 @@ function requestToAmazonForUsedPrices(pricesUrl){
       //get the offer ID's for the used book offers
       let offerIds = htmlDoc.getElementsByName("offeringID.1");
       $.each(offerIds, function(index, value){
-        
+
         console.log(offerIds[index]['value']);
         let offerIdValue = offerIds[index]['value'];
 
         $(`.${index}`).append(`<span><button type="submit" class= "js-purchase-book" id="${offerIdValue}">Buy</button></span>`);
-        handleBuyButton(offerIdValue);
       });
 
+      handleBuyButton();
 
     },
     error: function(){
@@ -199,11 +199,14 @@ function requestToAmazonForUsedPrices(pricesUrl){
 
 
 
-function handleBuyButton(offerListingData){
+function handleBuyButton(){
   //send request to amazon with offer listing ID on down click
   //on up click take user to Purchase URL
-  $('.js-sale-info').mousedown(`#${offerListingData}`, function(){
-      cartCreateAWSRequest(offerListingData);
+  $('.js-sale-info').on('mousedown', `button`, function(){
+    event.stopPropagation();
+    let offerId = $(this).attr("id");
+    console.log(offerId);
+      cartCreateAWSRequest(offerId);
     });
 }
 
