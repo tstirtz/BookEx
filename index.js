@@ -19,7 +19,6 @@ function handleSearchButton(){
 
     console.log(searchInputValue);
 
-    handleNewSearch();
 
     requestFromTasteKid(searchInputValue, function(obj){
       console.log(obj);
@@ -147,12 +146,6 @@ function requestToAmazonForUsedPrices(pricesUrl){
 
       $(".js-sale-info").empty();
 
-      //get the offer ID's for the used book offers
-      let offerIds = htmlDoc.getElementsByName("offeringID.1");
-      $.each(offerIds, function(index, value){
-        console.log(offerIds[index]['value']);
-        let offerIdValue = offerIds[index]['value'];
-      });
 
       //retrieve price of used books
       let priceInfo= htmlDoc.getElementsByClassName("olpOfferPrice");
@@ -183,6 +176,16 @@ function requestToAmazonForUsedPrices(pricesUrl){
         $(`.${index}`).append(`<span> Estimated Shipping Data ${estimatedShipping}</span>`);
       });
 
+      //get the offer ID's for the used book offers
+      let offerIds = htmlDoc.getElementsByName("offeringID.1");
+      $.each(offerIds, function(index, value){
+        
+        console.log(offerIds[index]['value']);
+        let offerIdValue = offerIds[index]['value'];
+
+        $(`.${index}`).append(`<span><button type="submit" class= "js-purchase-book" id="${offerIdValue}">Buy</button></span>`);
+        handleBuyButton(offerIdValue);
+      });
 
 
     },
@@ -196,8 +199,12 @@ function requestToAmazonForUsedPrices(pricesUrl){
 
 
 
-function renderPriceComparisons(){
-  //update DOM with prices comparisons
+function handleBuyButton(offerListingData){
+  //send request to amazon with offer listing ID on down click
+  //on up click take user to Purchase URL
+  $('.js-sale-info').mousedown(`#${offerListingData}`, function(){
+      cartCreateAWSRequest(offerListingData);
+    });
 }
 
 
@@ -280,6 +287,44 @@ AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Con
       console.log(requestObj);
       getPricesOfClickedBook(requestObj);
       console.log("end of requestFromAmazonProdAdd working");
+    }
+  });
+
+}
+
+
+
+
+function cartCreateAWSRequest(offerListingId){
+
+  let dt = new Date();
+  let dateISO = (dt.toISOString());
+  let dateMinusMilliSec = dateISO.replace(/\.[0-9]{3}/, '.000');
+  let encodedUtcDate = encodeURIComponent(dateMinusMilliSec);
+
+
+  let awsCartCreateUrlForSignature=
+`GET
+webservices.amazon.com
+/onca/xml
+AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Item.1.OfferListingId=${offerListingId}&Item.1.Quantity=1&Operation=CartCreate&Service=AWSECommerceService&Timestamp=${encodedUtcDate}`;
+
+
+  var signature1 = CryptoJS.HmacSHA256(awsCartCreateUrlForSignature, keys.secretKey);
+
+  let sigBase64 = signature1.toString(CryptoJS.enc.Base64);
+  let encodedSig = encodeURIComponent(sigBase64);
+
+
+    let awsCartCreateUrl = `http://webservices.amazon.com/onca/xml?AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Item.1.OfferListingId=${offerListingId}&Item.1.Quantity=1&Operation=CartCreate&Service=AWSECommerceService&Timestamp=${encodedUtcDate}&Signature=${encodedSig}`;
+
+
+
+  $.ajax({
+    url: awsCartCreateUrl,
+    dataType: "xml",
+    success: function(requestData){
+      console.log(requestData);
     }
   });
 
