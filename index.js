@@ -13,7 +13,7 @@ function handleSearchButton(){
   console.log("start of handleSearchButton working");
 
   $(".js-search-button").on("click", function(){
-    event.stopPropagation();
+    //event.stopPropagation();
     handleNewSearch();
     let searchInputValue= $(this).prev().val();
 
@@ -202,7 +202,7 @@ function requestToAmazonForUsedPrices(pricesUrl){
 function handleBuyButton(){
   //send request to amazon with offer listing ID on down click
   //on up click take user to Purchase URL
-  $('.js-sale-info').on('mousedown', `button`, function(){
+  $('.js-sale-info').on('mousedown', `.js-purchase-book`, function(){
     event.stopPropagation();
     let offerId = $(this).attr("id");
     console.log(offerId);
