@@ -3,28 +3,31 @@
   <head>
     <meta charset="utf-8">
     <title>Find A Book</title>
+    <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" />
+    <link href="https://fonts.googleapis.com/css?family=Vollkorn" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Amiri|Great+Vibes|Montserrat" rel="stylesheet">
     <link rel="stylesheet" href="style.css" type="text/css">
   </head>
   <body>
-    <section role="region">
-      <h1>Lorem Ipsum</h1>
-      <form action="#">
-        <fieldset>
-          <!--How important is a legend for accessiblity, I really don't want it to be displayed-->
-          <label for="start-page-search">Get Book Suggestions</label>
-          <input type="text" name="book-search-query" placeholder="Book title" id="book-search-query" class="js-book-search-input">
-          <button type="button" class="js-search-button">Search</button>
-        </fieldset>
-      </form>
-    </section>
-    <main role="main" class="js-main">
-      <section role="region" class="js-book-suggestions">
-
+      <section role="region" class = "start-page">
+        <h1 id="header"></h1>
+        <form action="#" class = "search-form">
+          <fieldset>
+            <!--How important is a legend for accessiblity, I really don't want it to be displayed-->
+            <label for="start-page-search">Get Book Suggestions</label>
+            <input type="text" name="book-search-query" placeholder="Book title" id="book-search-query" class="js-book-search-input">
+            <button type="button" class="js-search-button">Search</button>
+          </fieldset>
+        </form>
       </section>
-      <section role="region" class= "js-sale-info">
+      <main role="main" class="js-main">
+        <section role="region" class="js-book-suggestions">
 
-      </section>
-    </main>
+        </section>
+        <section role="region" class= "js-sale-info">
+
+        </section>
+      </main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/core.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/sha256.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/hmac.min.js"></script>

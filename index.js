@@ -7,6 +7,20 @@ let tasteKey = keys.tasteDive;
 
 
 
+let i = 0;
+let text = "Let's find your next book!";
+let speed = 75;
+
+
+function headerTypeWriter(){
+
+  if(i < text.length){
+    document.getElementById("header").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(headerTypeWriter, speed);
+  }
+}
+
 
 function handleSearchButton(){
 
@@ -284,10 +298,13 @@ AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Con
   });
 
 }
+ function docReadyFunctions(){
+   handleSearchButton();
+   headerTypeWriter();
+ }
 
 
 
 
 
-
-$(handleSearchButton);
+$(docReadyFunctions);
