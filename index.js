@@ -194,7 +194,7 @@ function requestToAmazonForUsedPrices(pricesUrl){
         let estimatedShipping = shippingDates[index]['children'][0]['childNodes'][2]['data'];
         console.log(estimatedShipping);
 
-        $(`.${index}`).append(`<span> Estimated Shipping Data ${estimatedShipping}</span>`);
+        $(`.${index}`).append(`<span> Estimated Shipping Date ${estimatedShipping}</span>`);
       });
 
 
