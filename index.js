@@ -197,10 +197,12 @@ function requestToAmazonForUsedPrices(pricesUrl){
         console.log(offerIds[index]['value']);
         let offerIdValue = offerIds[index]['value'];
 
-        $(`.${index}`).append(`<span><button type="submit" class= "js-purchase-book" id="${offerIdValue}">Buy</button></span>`);
+
+        $(`.${index}`).append(`<a href = "#" type="button" class= "js-purchase-book-${index}" id="${offerIdValue}" >Buy</button></a>`);
+
+        handleBuyButton(index);
       });
 
-      handleBuyButton();
 
     },
     error: function(){
@@ -213,15 +215,16 @@ function requestToAmazonForUsedPrices(pricesUrl){
 
 
 
-function handleBuyButton(){
+function handleBuyButton(index){
   //send request to amazon with offer listing ID on down click
   //on up click take user to Purchase URL
-  $('.js-sale-info').on('mousedown', `.js-purchase-book`, function(){
+  $('.js-sale-info').on('mousedown', `.js-purchase-book-${index}`, function(){
     event.stopPropagation();
     let offerId = $(this).attr("id");
     console.log(offerId);
-      cartCreateAWSRequest(offerId);
+      cartCreateAWSRequest(offerId, index);
     });
+
 }
 
 
@@ -308,15 +311,10 @@ AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Con
   });
 
 }
- function docReadyFunctions(){
-   handleSearchButton();
-   headerTypeWriter();
- }
 
 
 
-
-function cartCreateAWSRequest(offerListingId){
+function cartCreateAWSRequest(offerListingId, index){
 
   let dt = new Date();
   let dateISO = (dt.toISOString());
@@ -345,12 +343,23 @@ AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Ite
     url: awsCartCreateUrl,
     dataType: "xml",
     success: function(requestData){
-      console.log(requestData);
+          console.log(requestData);
+
+          let amazonPurchaseURL = requestData.getElementsByTagName("PurchaseURL")[0]['textContent'];
+
+          console.log(amazonPurchaseURL);
+
+          $(`.js-purchase-book-${index}`).attr("href", `${amazonPurchaseURL}`);
     }
   });
 
 }
 
+
+function docReadyFunctions(){
+  handleSearchButton();
+  headerTypeWriter();
+}
 
 
 
