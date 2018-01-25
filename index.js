@@ -100,7 +100,7 @@ function handleSuggestionClick(tasteDiveObj){
   //book suggestion or title link is clicked
   $(".js-book-suggestions").on('click', "a", function(){
       console.log("start of handleSuggestionClick working");
-      event.stopPropagation();
+      // event.stopPropagation();
 
     handleNewSearch();
 
@@ -219,12 +219,11 @@ function handleBuyButton(index){
   //send request to amazon with offer listing ID on down click
   //on up click take user to Purchase URL
   $('.js-sale-info').on('mousedown', `.js-purchase-book-${index}`, function(){
-    event.stopPropagation();
+    // event.stopPropagation();
     let offerId = $(this).attr("id");
     console.log(offerId);
       cartCreateAWSRequest(offerId, index);
-    });
-
+  });
 }
 
 
@@ -350,6 +349,15 @@ AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Ite
           console.log(amazonPurchaseURL);
 
           $(`.js-purchase-book-${index}`).attr("href", `${amazonPurchaseURL}`);
+
+          window.location.href = amazonPurchaseURL;
+
+    },
+    complete: function(){
+      console.log("call complete");
+      // $(`.js-purchase-book-${index}`).click();
+      // $(`.js-purchase-book-${index}`).trigger("click");
+
     }
   });
 
