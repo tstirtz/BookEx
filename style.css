@@ -40,7 +40,45 @@ fieldset{
   border: none;
 }
 
-fieldset label{
+.search-form label{
   font-size: 22px;
   font-family: 'Vollkorn', serif;
+}
+
+.search-form input{
+  display: inline-block;
+  width: 250px;
+  height: 30px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid black;
+  font-size: 16px;
+  outline: none;
+}
+
+.search-form input:-webkit-autofill,
+.search-form input:-webkit-autofill:hover,
+.search-form input:-webkit-autofill:focus,
+.search-form input:-webkit-autofill:active {
+    -webkit-transition-delay: 99999s;
+}
+
+.search-form button{
+  height: 30px;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.1), 0 6px 20px 0 rgba(0,0,0,0.1);
+  cursor: pointer;
+  border-radius: 3px;
+  -moz-appearance: button-bevel;
+}
+
+.search-form button:hover{
+  background-color: #000000;
+  color: white;
+  /* -moz-appearance: button-bevel; */
+}
+
+.search-form button:active{
+  background-color: rgba(255, 255, 255, 255);
+  transform: translateY(4px);
+  -moz-appearance: button-bevel;
 }
