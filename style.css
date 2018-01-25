@@ -29,6 +29,7 @@ h1{
   font-family: 'Vollkorn', serif;
   font-size: 40px;
   font-weight: bold;
+  margin: 15px;
 }
 
 .search-form{
@@ -43,12 +44,14 @@ fieldset{
 .search-form label{
   font-size: 22px;
   font-family: 'Vollkorn', serif;
+  margin: 10px;
 }
 
 .search-form input{
   display: inline-block;
   width: 250px;
   height: 30px;
+  margin: 10px;
   background: none;
   border: none;
   border-bottom: 1px solid black;
