@@ -1,7 +1,7 @@
 /// <reference types="aws-sdk" />
 const tasteDiveUrl = "https://tastedive.com/api/similar";
 const googleBooksUrl = "https://www.googleapis.com/books/v1/volumes";
-const amazonProductAddUrl ="http://webservices.amazon.com/onca/xml";
+const amazonProductAddUrl ="https://webservices.amazon.com/onca/xml";
 let tasteDive= "296844-TylerSti-H0RV7ZOB";
 let googleBooks= "AIzaSyAorrsA86m43Oyscx1iw2cJNeRuDZ5en8k";
 let secretKey= "2VOcLx9XqGZWe846qpg7D3K14x4i6yyQWv95Y3Ot";
@@ -248,6 +248,7 @@ function requestFromTasteKid(searchVal, callback){
   const settings = {
     q:`${searchVal}`,
     type:"books",
+    // method: "GET",
     info: 1,
     k: tasteDive,
     dataType: "jsonp",
