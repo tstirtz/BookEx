@@ -6,6 +6,8 @@ let googleKey = keys.googleBooks;
 let tasteKey = keys.tasteDive;
 
 
+require('dotenv').config();
+
 
 let i = 0;
 let text = "Let's find your next book!";
