@@ -2,11 +2,14 @@
 const tasteDiveUrl = "https://tastedive.com/api/similar";
 const googleBooksUrl = "https://www.googleapis.com/books/v1/volumes";
 const amazonProductAddUrl ="http://webservices.amazon.com/onca/xml";
-let googleKey = keys.googleBooks;
-let tasteKey = keys.tasteDive;
+let tasteDive= "296844-TylerSti-H0RV7ZOB";
+let googleBooks= "AIzaSyAorrsA86m43Oyscx1iw2cJNeRuDZ5en8k";
+let secretKey= "2VOcLx9XqGZWe846qpg7D3K14x4i6yyQWv95Y3Ot";
+let amazonWebServicesAccessKeyId= "AKIAJIONCKTFBI4FPKXQ";
 
 
-require('dotenv').config();
+
+
 
 
 let i = 0;
@@ -246,7 +249,7 @@ function requestFromTasteKid(searchVal, callback){
     q:`${searchVal}`,
     type:"books",
     info: 1,
-    k: tasteKey,
+    k: tasteDive,
     dataType: "jsonp",
     verbose: 1,
     crossDomain: true,
@@ -269,7 +272,7 @@ function requestFromGoogleBooks(searchVal, callback){
   const requestSetting={
     q: `${searchVal}`,
     intitle: `${searchVal}`,
-    key: googleKey,
+    key: googleBooks,
     //orderBy: "relevance",
     maxResults: 1
   };
@@ -294,16 +297,16 @@ function requestFromAmazonProdAdd(suggestionTitle){
 `GET
 webservices.amazon.com
 /onca/xml
-AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Condition=Used&Keywords=${suggestionTitle}&Operation=ItemSearch&ResponseGroup=ItemAttributes%2COffers%2COfferSummary&SearchIndex=Books&Service=AWSECommerceService&Sort=relevancerank&Timestamp=${encodedUtcDate}&Title=${suggestionTitle}`;
+AWSAccessKeyId=${amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Condition=Used&Keywords=${suggestionTitle}&Operation=ItemSearch&ResponseGroup=ItemAttributes%2COffers%2COfferSummary&SearchIndex=Books&Service=AWSECommerceService&Sort=relevancerank&Timestamp=${encodedUtcDate}&Title=${suggestionTitle}`;
 
 
-  var signature1 = CryptoJS.HmacSHA256(awsUrlForSignature, keys.secretKey);
+  var signature1 = CryptoJS.HmacSHA256(awsUrlForSignature, secretKey);
 
   let sigBase64 = signature1.toString(CryptoJS.enc.Base64);
   let encodedSig = encodeURIComponent(sigBase64);
 
 
-    let awsUrl = `http://webservices.amazon.com/onca/xml?AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Condition=Used&Keywords=${suggestionTitle}&Operation=ItemSearch&ResponseGroup=ItemAttributes%2COffers%2COfferSummary&SearchIndex=Books&Service=AWSECommerceService&Sort=relevancerank&Timestamp=${encodedUtcDate}&Title=${suggestionTitle}&Signature=${encodedSig}`;
+    let awsUrl = `http://webservices.amazon.com/onca/xml?AWSAccessKeyId=${amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Condition=Used&Keywords=${suggestionTitle}&Operation=ItemSearch&ResponseGroup=ItemAttributes%2COffers%2COfferSummary&SearchIndex=Books&Service=AWSECommerceService&Sort=relevancerank&Timestamp=${encodedUtcDate}&Title=${suggestionTitle}&Signature=${encodedSig}`;
 
 
 
@@ -334,16 +337,16 @@ function cartCreateAWSRequest(offerListingId, index){
 `GET
 webservices.amazon.com
 /onca/xml
-AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Item.1.OfferListingId=${offerListingId}&Item.1.Quantity=1&Operation=CartCreate&Service=AWSECommerceService&Timestamp=${encodedUtcDate}`;
+AWSAccessKeyId=${amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Item.1.OfferListingId=${offerListingId}&Item.1.Quantity=1&Operation=CartCreate&Service=AWSECommerceService&Timestamp=${encodedUtcDate}`;
 
 
-  var signature1 = CryptoJS.HmacSHA256(awsCartCreateUrlForSignature, keys.secretKey);
+  var signature1 = CryptoJS.HmacSHA256(awsCartCreateUrlForSignature, secretKey);
 
   let sigBase64 = signature1.toString(CryptoJS.enc.Base64);
   let encodedSig = encodeURIComponent(sigBase64);
 
 
-    let awsCartCreateUrl = `http://webservices.amazon.com/onca/xml?AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Item.1.OfferListingId=${offerListingId}&Item.1.Quantity=1&Operation=CartCreate&Service=AWSECommerceService&Timestamp=${encodedUtcDate}&Signature=${encodedSig}`;
+    let awsCartCreateUrl = `http://webservices.amazon.com/onca/xml?AWSAccessKeyId=${amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Item.1.OfferListingId=${offerListingId}&Item.1.Quantity=1&Operation=CartCreate&Service=AWSECommerceService&Timestamp=${encodedUtcDate}&Signature=${encodedSig}`;
 
 
 
