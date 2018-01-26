@@ -127,11 +127,19 @@ function handleSuggestionClick(tasteDiveObj){
 function getPricesOfClickedBook(amazonData){
     console.log("start of getPricesOfClickedBook working");
 
-    let allOffersUrl = amazonData.getElementsByTagName("ItemLinks")[0].childNodes[6].childNodes[1].childNodes[0].nodeValue;
-      console.log(allOffersUrl);
+    //Check if browser is Chrome
+    if(navigator.userAgent.indexOf("Chrome") > -1){
+      let allOffersUrlChrome = amazonData.getElementsByTagName("ItemLinks")[0].childNodes[6].childNodes[1].childNodes[0].nodeValue;
+        console.log(allOffersUrlChrome);
 
-    requestToAmazonForUsedPrices(allOffersUrl);
+      requestToAmazonForUsedPrices(allOffersUrlChrome);
+    }//Check if browser is Firefox
+    else if (navigator.userAgent.indexOf("Firefox") > -1){
+      let allOffersUrlFirefox = amazonData.activeElement['childNodes'][1]['childNodes'][4]['childNodes'][2]['childNodes'][6]['childNodes'][1]['innerHTML'];
+      console.log(allOffersUrlFirefox);
 
+      requestToAmazonForUsedPrices(allOffersUrlFirefox);
+    }
     console.log("end of getPricesOfClickedBook working");
 }
 
@@ -202,7 +210,6 @@ function requestToAmazonForUsedPrices(pricesUrl){
 
         handleBuyButton(index);
       });
-
 
     },
     error: function(){
@@ -351,13 +358,6 @@ AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Ite
           $(`.js-purchase-book-${index}`).attr("href", `${amazonPurchaseURL}`);
 
           window.location.href = amazonPurchaseURL;
-
-    },
-    complete: function(){
-      console.log("call complete");
-      // $(`.js-purchase-book-${index}`).click();
-      // $(`.js-purchase-book-${index}`).trigger("click");
-
     }
   });
 
