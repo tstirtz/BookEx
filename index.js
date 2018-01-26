@@ -1,8 +1,8 @@
 /// <reference types="aws-sdk" />
-const tasteDiveUrl = "https://tastedive.com/api/similar";
+const tasteDiveUrl = "https://tastedive.com/api/similar?callback=?";
 const googleBooksUrl = "https://www.googleapis.com/books/v1/volumes";
 const amazonProductAddUrl ="https://webservices.amazon.com/onca/xml";
-let tasteDive= "296844-TylerSti-H0RV7ZOB";
+let tasteDive= "296844-TylerSti-CJ8GIDVA";
 let googleBooks= "AIzaSyAorrsA86m43Oyscx1iw2cJNeRuDZ5en8k";
 let secretKey= "2VOcLx9XqGZWe846qpg7D3K14x4i6yyQWv95Y3Ot";
 let amazonWebServicesAccessKeyId= "AKIAJIONCKTFBI4FPKXQ";
@@ -39,18 +39,18 @@ function handleSearchButton(){
     console.log(searchInputValue);
 
 
-    requestFromTasteKid(searchInputValue, function(obj){
-      console.log(obj);
+    requestFromTasteKid(searchInputValue, function(json){
+      console.log(json);
 
       if(searchInputValue.length === 0){
         $(".js-main").append(`<p>Sorry, please enter a book to be searched.</p>`);
       }else {
 
-        console.log(obj.Similar.Results);
+        console.log(json.Similar.Results);
 
-        handleSuggestionClick(obj);
+        handleSuggestionClick(json);
 
-        const resultItems = obj.Similar.Results.map(function(result, index){
+        const resultItems = json.Similar.Results.map(function(result, index){
 
           const bookSuggestionName = result.Name;
           const bookSynopsis = result.wTeaser;
@@ -238,29 +238,36 @@ function handleBuyButton(index){
   });
 }
 
+function logJsonResults(json){
+  console.log(json);
+}
 
+//left off here: testing to see if logJsonResults will work as a jsonpCallback
 
 
 
 function requestFromTasteKid(searchVal, callback){
 //Next Step: set an environment variable for api keys
 
-  const settings = {
+  $.ajax({
+    url: tasteDiveUrl,
+    dataType: "jsonp",
+    error: function(){
+      console.log(`request failed`);
+      $(".js-main").append("Sorry, your search failed. Please try again.");},
+    success: callback,
+    data:{
     q:`${searchVal}`,
     type:"books",
-    // method: "GET",
     info: 1,
     k: tasteDive,
-    dataType: "jsonp",
     verbose: 1,
     crossDomain: true,
-    limit: 10
-  };
+    limit: 10,
+    format:"json"}
 
-  $.getJSON(tasteDiveUrl, settings, callback).fail(function(){
-    console.log(`request failed`);
-    $(".js-main").append("Sorry, your search failed. Please try again.");
   });
+
 }
 
 
