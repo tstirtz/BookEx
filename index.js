@@ -349,7 +349,7 @@ AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Ite
   let encodedSig = encodeURIComponent(sigBase64);
 
 
-    let awsCartCreateUrl = `http://webservices.amazon.com/onca/xml?AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Item.1.OfferListingId=${offerListingId}&Item.1.Quantity=1&Operation=CartCreate&Service=AWSECommerceService&Timestamp=${encodedUtcDate}&Signature=${encodedSig}`;
+    let awsCartCreateUrl = `https://webservices.amazon.com/onca/xml?AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Item.1.OfferListingId=${offerListingId}&Item.1.Quantity=1&Operation=CartCreate&Service=AWSECommerceService&Timestamp=${encodedUtcDate}&Signature=${encodedSig}`;
 
 
 
