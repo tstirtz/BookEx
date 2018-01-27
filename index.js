@@ -20,12 +20,14 @@ function headerTypeWriter(){
 }
 
 
+
+
 function handleSearchButton(){
 
   console.log("start of handleSearchButton working");
 
   $(".js-search-button").on("click", function(){
-    //event.stopPropagation();
+    console.log("click function working");
     handleNewSearch();
     let searchInputValue= $(this).prev().val();
 
@@ -74,8 +76,16 @@ function handleSearchButton(){
     });
     clearSearchInput();
   });
+  $(".js-search-button").on("keypress", function(keypressed){
+    //if enter key is pressed call the search button click function
+    if(keypressed === 13){
+
+      $(".js-search-button").on();
+    }
+  });
   console.log("end of handleSearchButton working");
 }
+
 
 
 
@@ -83,6 +93,9 @@ function handleNewSearch(){
   $(".js-book-suggestions").empty();
   $(".js-sale-info").empty();
 }
+
+
+
 
 function clearSearchInput(){
   $(".js-book-search-input").val('');
@@ -118,7 +131,6 @@ function handleSuggestionClick(tasteDiveObj){
 
 
 
-
 function getPricesOfClickedBook(amazonData){
     console.log("start of getPricesOfClickedBook working");
 
@@ -138,8 +150,6 @@ function getPricesOfClickedBook(amazonData){
     }
     console.log("end of getPricesOfClickedBook working");
 }
-
-
 
 
 
@@ -259,7 +269,6 @@ function requestFromTasteKid(searchVal, callback){
 
 
 
-
 function requestFromGoogleBooks(searchVal, callback){
   //make call to Google Books api to get book cover images
   console.log(searchVal);
@@ -291,7 +300,7 @@ function requestFromAmazonProdAdd(suggestionTitle){
 `GET
 webservices.amazon.com
 /onca/xml
-AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Condition=Used&Keywords=${suggestionTitle}&Operation=ItemSearch&ResponseGroup=ItemAttributes%2COffers%2COfferSummary&SearchIndex=Books&Service=AWSECommerceService&Sort=relevancerank&Timestamp=${encodedUtcDate}&Title=${suggestionTitle}`;
+AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Condition=Used&Keywords=${suggestionTitle}&Operation=ItemSearch&ResponseGroup=ItemAttributes%2COffers%2COfferSummary&SearchIndex=Books&Service=AWSECommerceService&Sort=relevancerank&Timestamp=${encodedUtcDate}&Title=${suggestionTitle}`;//Do not tab this string template over!
 
 
   var signature1 = CryptoJS.HmacSHA256(awsUrlForSignature, keys.secretKey);
@@ -335,7 +344,7 @@ function cartCreateAWSRequest(offerListingId, index){
 `GET
 webservices.amazon.com
 /onca/xml
-AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Item.1.OfferListingId=${offerListingId}&Item.1.Quantity=1&Operation=CartCreate&Service=AWSECommerceService&Timestamp=${encodedUtcDate}`;
+AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Item.1.OfferListingId=${offerListingId}&Item.1.Quantity=1&Operation=CartCreate&Service=AWSECommerceService&Timestamp=${encodedUtcDate}`; //Do not tab this string template over!
 
 
   var signature1 = CryptoJS.HmacSHA256(awsCartCreateUrlForSignature, keys.secretKey);
