@@ -2,12 +2,6 @@
 const tasteDiveUrl = "https://tastedive.com/api/similar?callback=?";
 const googleBooksUrl = "https://www.googleapis.com/books/v1/volumes";
 const amazonProductAddUrl ="https://webservices.amazon.com/onca/xml";
-let tasteDive= "296844-TylerSti-CJ8GIDVA";
-let googleBooks= "AIzaSyAorrsA86m43Oyscx1iw2cJNeRuDZ5en8k";
-let secretKey= "7qKTQwSO82W3Ny9/gDIucplaiK12uObXcnrDLzON";
-let amazonWebServicesAccessKeyId= "AKIAJ2EHGYIPJZK6Z5JA";
-
-
 
 
 
@@ -260,7 +254,7 @@ function requestFromTasteKid(searchVal, callback){
     q:`${searchVal}`,
     type:"books",
     info: 1,
-    k: tasteDive,
+    k: keys.tasteDive,
     verbose: 1,
     crossDomain: true,
     limit: 10,
@@ -280,7 +274,7 @@ function requestFromGoogleBooks(searchVal, callback){
   const requestSetting={
     q: `${searchVal}`,
     intitle: `${searchVal}`,
-    key: googleBooks,
+    key: keys.googleBooks,
     //orderBy: "relevance",
     maxResults: 1
   };
@@ -305,22 +299,23 @@ function requestFromAmazonProdAdd(suggestionTitle){
 `GET
 webservices.amazon.com
 /onca/xml
-AWSAccessKeyId=${amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Condition=Used&Keywords=${suggestionTitle}&Operation=ItemSearch&ResponseGroup=ItemAttributes%2COffers%2COfferSummary&SearchIndex=Books&Service=AWSECommerceService&Sort=relevancerank&Timestamp=${encodedUtcDate}&Title=${suggestionTitle}`;
+AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Condition=Used&Keywords=${suggestionTitle}&Operation=ItemSearch&ResponseGroup=ItemAttributes%2COffers%2COfferSummary&SearchIndex=Books&Service=AWSECommerceService&Sort=relevancerank&Timestamp=${encodedUtcDate}&Title=${suggestionTitle}`;
 
 
-  var signature1 = CryptoJS.HmacSHA256(awsUrlForSignature, secretKey);
+  var signature1 = CryptoJS.HmacSHA256(awsUrlForSignature, keys.secretKey);
 
   let sigBase64 = signature1.toString(CryptoJS.enc.Base64);
   let encodedSig = encodeURIComponent(sigBase64);
 
 
-    let awsUrl = `http://webservices.amazon.com/onca/xml?AWSAccessKeyId=${amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Condition=Used&Keywords=${suggestionTitle}&Operation=ItemSearch&ResponseGroup=ItemAttributes%2COffers%2COfferSummary&SearchIndex=Books&Service=AWSECommerceService&Sort=relevancerank&Timestamp=${encodedUtcDate}&Title=${suggestionTitle}&Signature=${encodedSig}`;
+    let awsUrl = `http://webservices.amazon.com/onca/xml?AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Condition=Used&Keywords=${suggestionTitle}&Operation=ItemSearch&ResponseGroup=ItemAttributes%2COffers%2COfferSummary&SearchIndex=Books&Service=AWSECommerceService&Sort=relevancerank&Timestamp=${encodedUtcDate}&Title=${suggestionTitle}&Signature=${encodedSig}`;
 
 
 
   $.ajax({
     url: awsUrl,
     dataType: "xml",
+
     success: function(requestObj){
       console.log("start of requestFromAmazonProdAdd working");
       console.log(requestObj);
@@ -345,16 +340,16 @@ function cartCreateAWSRequest(offerListingId, index){
 `GET
 webservices.amazon.com
 /onca/xml
-AWSAccessKeyId=${amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Item.1.OfferListingId=${offerListingId}&Item.1.Quantity=1&Operation=CartCreate&Service=AWSECommerceService&Timestamp=${encodedUtcDate}`;
+AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Item.1.OfferListingId=${offerListingId}&Item.1.Quantity=1&Operation=CartCreate&Service=AWSECommerceService&Timestamp=${encodedUtcDate}`;
 
 
-  var signature1 = CryptoJS.HmacSHA256(awsCartCreateUrlForSignature, secretKey);
+  var signature1 = CryptoJS.HmacSHA256(awsCartCreateUrlForSignature, keys.secretKey);
 
   let sigBase64 = signature1.toString(CryptoJS.enc.Base64);
   let encodedSig = encodeURIComponent(sigBase64);
 
 
-    let awsCartCreateUrl = `http://webservices.amazon.com/onca/xml?AWSAccessKeyId=${amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Item.1.OfferListingId=${offerListingId}&Item.1.Quantity=1&Operation=CartCreate&Service=AWSECommerceService&Timestamp=${encodedUtcDate}&Signature=${encodedSig}`;
+    let awsCartCreateUrl = `http://webservices.amazon.com/onca/xml?AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Item.1.OfferListingId=${offerListingId}&Item.1.Quantity=1&Operation=CartCreate&Service=AWSECommerceService&Timestamp=${encodedUtcDate}&Signature=${encodedSig}`;
 
 
 
