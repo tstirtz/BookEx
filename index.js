@@ -1,4 +1,3 @@
-/// <reference types="aws-sdk" />
 const tasteDiveUrl = "https://tastedive.com/api/similar?callback=?";
 const googleBooksUrl = "https://www.googleapis.com/books/v1/volumes";
 const amazonProductAddUrl ="https://webservices.amazon.com/onca/xml";
@@ -79,12 +78,6 @@ function handleSearchButton(){
 }
 
 
-
-
-
-function renderBookSuggestions(){
-  //append results to html
-}
 
 function handleNewSearch(){
   $(".js-book-suggestions").empty();
@@ -236,16 +229,11 @@ function handleBuyButton(index){
   });
 }
 
-function logJsonResults(json){
-  console.log(json);
-}
-
-//left off here: testing to see if logJsonResults will work as a jsonpCallback
 
 
 
 function requestFromTasteKid(searchVal, callback){
-//Next Step: set an environment variable for api keys
+
 
   $.ajax({
     url: tasteDiveUrl,
