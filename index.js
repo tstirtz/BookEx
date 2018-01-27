@@ -33,6 +33,7 @@ function handleSearchButton(){
     console.log(searchInputValue);
 
 
+
     requestFromTasteKid(searchInputValue, function(json){
       console.log(json);
 
@@ -51,6 +52,8 @@ function handleSearchButton(){
           const removeComma = bookSuggestionName.replace(/\'/, '');
           const encBookName = encodeURIComponent(removeComma);
           console.log(index);
+
+          console.log(encBookName);
 
           requestFromGoogleBooks(bookSuggestionName, function(resultObj){
             console.log("start of requestFromGoogleBooks working");
@@ -129,6 +132,7 @@ function getPricesOfClickedBook(amazonData){
     //Check if browser is Chrome
     if(navigator.userAgent.indexOf("Chrome") > -1){
       let allOffersUrlChrome = amazonData.getElementsByTagName("ItemLinks")[0].childNodes[6].childNodes[1].childNodes[0].nodeValue;
+        console.log("-----------------");
         console.log(allOffersUrlChrome);
 
       requestToAmazonForUsedPrices(allOffersUrlChrome);
@@ -150,15 +154,15 @@ function getPricesOfClickedBook(amazonData){
 function requestToAmazonForUsedPrices(pricesUrl){
   //when book suggestion is clicked make call to amazon offer listing url api
   console.log("start of requestToAmazonForUsedPrices working");
-
+  console.log(pricesUrl);
 
   $.ajax({
-    url: pricesUrl,
-    type: 'POST',
-    contentType: "text/plain; charset=utf-8",
-    dataType: 'text',
-    //data: data,
-    processData: false,
+    url: "https://rift-lycra.glitch.me/postmedata",
+    type: 'GET',
+    // contentType: "text/plain; charset=utf-8",
+    // dataType: 'text',
+    data: {url: pricesUrl},
+    // processData: false,
     success: function(data){
 
       parser= new DOMParser();
@@ -313,9 +317,12 @@ AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Con
 
 
   $.ajax({
-    url: awsUrl,
+    url: "https://rift-lycra.glitch.me/givemedata",
     dataType: "xml",
-
+    data: { url: awsUrl },
+    headers:{
+       'Access-Control-Allow-Origin': '*'
+    },
     success: function(requestObj){
       console.log("start of requestFromAmazonProdAdd working");
       console.log(requestObj);
@@ -354,8 +361,12 @@ AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Ite
 
 
   $.ajax({
-    url: awsCartCreateUrl,
+    url: "https://rift-lycra.glitch.me/givemedata",
     dataType: "xml",
+    data: { url: awsCartCreateUrl },
+    headers:{
+       'Access-Control-Allow-Origin': '*'
+    },
     success: function(requestData){
           console.log(requestData);
 
