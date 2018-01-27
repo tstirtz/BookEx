@@ -4,8 +4,8 @@ const googleBooksUrl = "https://www.googleapis.com/books/v1/volumes";
 const amazonProductAddUrl ="https://webservices.amazon.com/onca/xml";
 let tasteDive= "296844-TylerSti-CJ8GIDVA";
 let googleBooks= "AIzaSyAorrsA86m43Oyscx1iw2cJNeRuDZ5en8k";
-let secretKey= "2VOcLx9XqGZWe846qpg7D3K14x4i6yyQWv95Y3Ot";
-let amazonWebServicesAccessKeyId= "AKIAJIONCKTFBI4FPKXQ";
+let secretKey= "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";
+let amazonWebServicesAccessKeyId= "AKIAJ2EHGYIPJZK6Z5JA";
 
 
 
