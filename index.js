@@ -26,7 +26,8 @@ function handleSearchButton(){
 
   console.log("start of handleSearchButton working");
 
-  $(".js-search-button").on("click", function(){
+  $(".js-search-button").on("click", function(event){
+    event.preventDefault();
     console.log("click function working");
     handleNewSearch();
     let searchInputValue= $(this).prev().val();
