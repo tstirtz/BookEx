@@ -38,8 +38,8 @@ function handleSearchButton(){
     requestFromTasteKid(searchInputValue, function(json){
       console.log(json);
 
-      if(searchInputValue.length === 0){
-        $(".js-main").append(`<p>Sorry, please enter a book to be searched.</p>`);
+      if(json.Similar.Results.length === 0){
+        $(".js-book-suggestions").append(`<p>Sorry, we could't find anything related to "${searchInputValue}". Check spelling or try another book.</p>`);
       }else {
 
         console.log(json.Similar.Results);
@@ -253,6 +253,10 @@ function requestFromTasteKid(searchVal, callback){
       console.log(`request failed`);
       $(".js-main").append("Sorry, your search failed. Please try again.");},
     success: callback,
+    error: function(jqXHRObject, typeOfError){
+      console.log("Taste Dive error message: " + typeOfError)
+      $(".js-book-suggestions").append("Sorry there was an error: " + typeOfError);
+    },
     data:{
     q:`${searchVal}`,
     type:"books",
