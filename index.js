@@ -215,7 +215,6 @@ function requestToAmazonForUsedPrices(pricesUrl){
         $(`.${index}`).append(`<a href = "#" type="button" class= "js-purchase-book-${index}" id="${offerIdValue}" >Buy</button></a>`);
 
         handleBuyButton(index);
-        handleBuyButtonKeypress(index);
       });
 
     },
@@ -233,26 +232,11 @@ function handleBuyButton(index){
   //send request to amazon with offer listing ID on down click
   //on up click take user to Purchase URL
   console.log("buy button click function working");
-  $('.js-sale-info').on('mousedown', `.js-purchase-book-${index}`, function(){
+  $('.js-sale-info').on('click', `.js-purchase-book-${index}`, function(){
     console.log("buy button click function working");
     let offerId = $(this).attr("id");
 
       cartCreateAWSRequest(offerId, index);
-  });
-}
-
-
-
-
-function handleBuyButtonKeypress(index){
-  console.log("buy button enter function working");
-  $('.js-sale-info a').keydown(`.js-purchase-book-${index}`, function(keypressed){
-      if(keypressed === 13){
-        event.preventDefault();
-        let offerId = $(this).attr("id");
-
-          cartCreateAWSRequest(offerId, index);
-      }
   });
 }
 
