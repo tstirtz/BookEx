@@ -41,7 +41,7 @@ function handleSearchButton(){
       if(json.Similar.Results.length === 0){
         $(".js-book-suggestions").append(`<p>Sorry, we could't find anything related to "${searchInputValue}". Check spelling or try another book.</p>`);
       }else {
-
+        $(".js-book-suggestions").append(`<h2>Books related to "${searchInputValue}"</h2>`);
         console.log(json.Similar.Results);
 
         handleSuggestionClick(json);
@@ -121,8 +121,11 @@ function handleSuggestionClick(tasteDiveObj){
     requestFromAmazonProdAdd(clickedEncodedTitle);
 
     let synopsis = tasteDiveObj["Similar"]["Results"][clickedBook]["wTeaser"];
+    let title = tasteDiveObj["Similar"]["Results"][clickedBook]["Name"];
 
-    $(".js-book-suggestions").append("<p>" + synopsis + "</p>");
+    $(".js-book-suggestions").append(
+      `<h2>${title}</h2>
+      <p>${synopsis}</p>`);
 
     console.log("end of handleSuggestionClick working");
   });
@@ -173,12 +176,13 @@ function requestToAmazonForUsedPrices(pricesUrl){
       console.log(htmlDoc);
 
       $(".js-sale-info").empty();
-
+      $(".js-sale-info").append(
+        `<h3>Used Book Prices</h3>`);
 
       //retrieve price of used books
       let priceInfo= htmlDoc.getElementsByClassName("olpOfferPrice");
       $.each(priceInfo, function(index, value){
-        console.log(priceInfo[index]['innerHTML']);
+
         let bookPrices = priceInfo[index]['innerHTML'];
         $(".js-sale-info").append(
           `<div class= "${index}">
@@ -191,7 +195,7 @@ function requestToAmazonForUsedPrices(pricesUrl){
       let shippingData= htmlDoc.getElementsByClassName("olpShippingInfo");
       $.each(shippingData, function(index){
         let shippingCost = shippingData[index]['firstChild']['nextElementSibling']['children'][0]['innerText'];
-        console.log(shippingCost);
+
         $(`.${index}`).append(`<span>Shipping: ${shippingCost}</span>`);
       });
 
@@ -199,20 +203,37 @@ function requestToAmazonForUsedPrices(pricesUrl){
       let shippingDates= htmlDoc.getElementsByClassName("olpAvailabilityExpander");
       $.each(shippingDates, function(index){
         let estimatedShipping = shippingDates[index]['children'][0]['childNodes'][2]['data'];
-        console.log(estimatedShipping);
+
 
         $(`.${index}`).append(`<span> Estimated Shipping Date ${estimatedShipping}</span>`);
+      });
+
+      //retrieve seller name
+      let getSellerInfo = htmlDoc.getElementsByClassName("olpSellerColumn");
+      console.log(getSellerInfo)
+      $.each(getSellerInfo, function(index){
+
+          let sellerName = getSellerInfo[index]['childNodes'][1]['childNodes'][1]['childNodes'][1]['childNodes'][0]['nodeValue'];
+
+          console.log(sellerName);
+
+          let sellerRating = getSellerInfo[index]['childNodes'][3]['childNodes'][3]['childNodes'][0]['innerText'];
+
+          console.log(sellerRating);
+
+          $(`.${index}`).append(`<span>${sellerName}</span><span>Seller Rating: ${sellerRating}</span>`);
+
       });
 
       //get the offer ID's for the used book offers
       let offerIds = htmlDoc.getElementsByName("offeringID.1");
       $.each(offerIds, function(index, value){
 
-        console.log(offerIds[index]['value']);
+
         let offerIdValue = offerIds[index]['value'];
 
 
-        $(`.${index}`).append(`<a href = "#" type="button" class= "js-purchase-book-${index}" id="${offerIdValue}" >Buy</button></a>`);
+        $(`.${index}`).append(`<a href = "#" type="button" class= "js-purchase-book-${index}" id="${offerIdValue}" >Buy Off Amazon</button></a>`);
 
         handleBuyButton(index);
       });
