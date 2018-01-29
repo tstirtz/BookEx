@@ -93,8 +93,9 @@ function handleSearchButton(){
 
 
 function handleNewSearch(){
+  $(".js-suggestions-header").empty();
   $(".js-book-suggestions").empty();
-  $(".js-sale-info").empty();
+  $(".js-price-container").empty();
 }
 
 
@@ -178,16 +179,18 @@ function requestToAmazonForUsedPrices(pricesUrl){
       htmlDoc = parser.parseFromString(data, 'text/html')
       console.log(htmlDoc);
 
-      $(".js-sale-info").empty();
-      $(".js-sale-info").append(
-        `<h3>Used Book Prices</h3>`);
+      $(".js-price-container").empty();
+      $(".js-price-container").prepend(
+        `<header role= "navigation" class= "prices-header"
+            <h3>Used Book Prices</h3>
+         </header>`);
 
       //retrieve price of used books
       let priceInfo= htmlDoc.getElementsByClassName("olpOfferPrice");
       $.each(priceInfo, function(index, value){
 
         let bookPrices = priceInfo[index]['innerHTML'];
-        $(".js-sale-info").append(
+        $(".js-price-container").append(
           `<div class= "${index}">
             <span>${bookPrices}</span>
           </div>`

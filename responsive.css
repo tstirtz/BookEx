@@ -1,7 +1,4 @@
 @media (max-width: 426px){
-  * {
-    box-sizing: border-box;
-  }
 
   .start-page{
     display: flex;
@@ -86,8 +83,15 @@
     margin-top: 15px;
   }
 
-  .js-book-suggestions p{
-    background-color: ;
+  .book-suggestions p{
+    font-family: 'Vollkorn', serif;
+    font-weight: lighter;
+    font-size: 14px;
+    margin: 5%;
+  }
+
+  .price-container{
+    margin: 2.5%;
   }
 
 }
