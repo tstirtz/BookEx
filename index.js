@@ -227,7 +227,7 @@ function requestToAmazonForUsedPrices(pricesUrl){
 
           console.log(sellerRating);
 
-          $(`.${index}`).append(`<span>${sellerName}</span><span>Seller Rating: ${sellerRating}</span>`);
+          $(`.${index}`).append(`<span class= "seller-name">${sellerName}</span><span>Seller Rating: ${sellerRating}</span>`);
 
       });
 

@@ -97,7 +97,19 @@
   }
 
   .individual-price-info{
+    display: flex;
     margin: 10px 0px 10px 0px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #cccccc;
+    font-size: 14px;
+  }
+
+  .individual-price-info span{
+    margin: 5px;
+  }
+
+  .seller-name{
+    display: none;
   }
 
 }
