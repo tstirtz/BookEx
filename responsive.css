@@ -1,4 +1,5 @@
-@media (max-width: 330px){
+@media (max-width: 426px){
+  
   .start-page{
     display: flex;
     flex-direction: column;
@@ -7,13 +8,31 @@
   }
 
   h1{
+    font-size: 28px;
+    display: block;
+    text-align: center;
+    width: 90%;
+  }
+
+  fieldset{
     display: flex;
-    font-size: 24px;
+    flex-direction: column;
+  }
+
+  .search-form{
+    width: 80%;
+  }
+
+  .input-and-button{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
   }
 
   .book-search-input{
-    font-size: 12px;
+    font-size: 16px;
   }
+
   .search-label{
     display: none;
   }

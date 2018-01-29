@@ -30,12 +30,14 @@ h1{
   font-family: 'Vollkorn', serif;
   font-size: 40px;
   font-weight: bold;
-  margin: 0px;
+  margin: 10px 0px 10px 0px;
 }
 
 
 fieldset{
   border: none;
+  margin: 0px;
+  padding: 0px
 }
 
 .search-label{
@@ -46,12 +48,19 @@ fieldset{
 .book-search-input{
   width: 80%;
   height: 30px;
-  margin: 5px;
+  margin: 0px 10px 0px 10px;
   background: none;
   border: none;
   border-bottom: 1px solid black;
   font-size: 16px;
   outline: none;
+}
+
+.input-and-button{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  margin: 10px 0px 10px 0px;
 }
 
 /*removes chrome autofill color */
