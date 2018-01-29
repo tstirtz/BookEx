@@ -191,7 +191,7 @@ function requestToAmazonForUsedPrices(pricesUrl){
 
         let bookPrices = priceInfo[index]['innerHTML'];
         $(".js-price-container").append(
-          `<div class= "${index}">
+          `<div class= "${index} individual-price-info">
             <span>${bookPrices}</span>
           </div>`
         );
