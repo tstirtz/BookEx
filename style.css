@@ -16,6 +16,9 @@ main{
 }
 
 .start-page{
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100%;
   background:
@@ -27,10 +30,23 @@ main{
 background-size: cover;
 }
 
+.start-page-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+}
+
 h1{
   font-family: 'Vollkorn', serif;
-  font-size: 40px;
+  font-size: 38px;
   font-weight: bold;
+  margin: 10px 0px 10px 0px;
+}
+
+.search-form{
+  width: 100%;
   margin: 10px 0px 10px 0px;
 }
 
@@ -38,18 +54,14 @@ h1{
 fieldset{
   border: none;
   margin: 0px;
-  padding: 0px
+  padding: 0px;
 }
 
-.search-label{
-  font-size: 22px;
-  font-family: 'Vollkorn', serif;
-}
 
 .book-search-input{
-  width: 80%;
+  width: 75%;
   height: 30px;
-  margin: 0px 10px 0px 10px;
+  margin-right: 10px;
   background: none;
   border: none;
   border-bottom: 1px solid black;
@@ -61,7 +73,9 @@ fieldset{
   display: flex;
   flex-direction: row;
   align-items: flex-end;
+  justify-content: center;
   margin: 10px 0px 10px 0px;
+  width: 100%;
 }
 
 /*removes chrome autofill color */
@@ -90,6 +104,14 @@ fieldset{
   background-color: rgba(255, 255, 255, 255);
   transform: translateY(4px);
   -moz-appearance: button-bevel;
+}
+
+.error-message{
+  background-color: rgba(255, 255, 255, .7);
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+  font-weight: lighter;
+  text-align: center;
 }
 
 .result-item{

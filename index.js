@@ -282,7 +282,7 @@ function requestFromTasteKid(searchVal, callback){
     success: callback,
     error: function(jqXHRObject, typeOfError){
       console.log("Taste Dive error message: " + typeOfError)
-      $(".js-book-suggestions").append("Sorry there was an error: " + typeOfError);
+      $(".start-page-container").append(`<div class= "error-message">Sorry there was an error from server, please try again.</div>`);
     },
     data:{
     q:`${searchVal}`,

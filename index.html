@@ -7,22 +7,25 @@
     <!-- <link rel="stylesheet" src="//normalize-css.googlecode.com/svn/trunk/normalize.css" /> -->
     <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Amiri|Great+Vibes|Montserrat" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Arvo|Lato" rel="stylesheet">
     <link rel="stylesheet" href="style.css" type="text/css">
     <link rel="stylesheet" href="responsive.css" type="text/css">
   </head>
   <body>
-      <section role="region" class = "start-page">
-        <h1 id="header"></h1>
-        <form action="#" class = "search-form">
-          <fieldset>
-            <!--How important is a legend for accessiblity, I really don't want it to be displayed-->
-            <label for="start-page-search" class="search-label">Input a book and we will suggest books that are similar.</label>
-            <div class = "input-and-button">
-              <input type="text" name="book-search-query" placeholder="Book Title" id="book-search-query" class="js-book-search-input book-search-input">
-              <button type="submit" class="js-search-button">Search</button>
-            </div>
-          </fieldset>
-        </form>
+      <section role="region" class = "start-page col-12">
+        <div class= "start-page-container">
+          <h1 id="header"></h1>
+          <form action="#" class = "search-form">
+            <fieldset>
+              <!--How important is a legend for accessiblity, I really don't want it to be displayed-->
+              <label for="start-page-search" class="search-label"></label>
+              <div class = "input-and-button">
+                <input type="text" name="book-search-query" placeholder="Search A Title That You Like" id="book-search-query" class="js-book-search-input book-search-input">
+                <button type="submit" class="js-search-button">Search</button>
+              </div>
+            </fieldset>
+          </form>
+        </div>
       </section>
       <main role="main" class="js-main">
         <header role="navigation" class="js-suggestions-header"></header>
