@@ -96,6 +96,7 @@ function handleNewSearch(){
   $(".js-suggestions-header").empty();
   $(".js-book-suggestions").empty();
   $(".js-price-container").empty();
+  $(".error-message").remove();
 }
 
 
