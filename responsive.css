@@ -40,14 +40,38 @@
   .book-title{
     text-decoration: none;
     color: black;
+    display: block;
   }
 
-  .book-suggestions h2{
-    font-size: 18px;
+  main h2{
+    font-size: 22px;
+    text-align: center;
+
   }
 
-  .book-cover{
-    
+  .book-suggestions {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .cover-image{
+    margin-top: auto;
+    height: 200px;
+    width: 133.33px;
+    margin: 5px;
+  }
+
+  .book-title{
+    margin: auto;
+    text-align: center;
+  }
+
+  .result-item{
+    margin-bottom: 15px;
+    margin-top: 15px;
   }
 }
 

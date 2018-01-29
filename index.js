@@ -42,7 +42,7 @@ function handleSearchButton(){
       if(json.Similar.Results.length === 0){
         $(".js-book-suggestions").append(`<p>Sorry, we could't find anything related to "${searchInputValue}". Check spelling or try another book.</p>`);
       }else {
-        $(".js-book-suggestions").append(`<h2>Books related to "${searchInputValue}"</h2>`);
+        $(".js-main").prepend(`<h2>Books related to "${searchInputValue}"</h2>`);
         console.log(json.Similar.Results);
 
         handleSuggestionClick(json);
@@ -68,7 +68,7 @@ function handleSearchButton(){
             $(".js-book-suggestions").append(
               `<div class="result-item">
                 <a href="#" class="${index} book-title" id=     "${encBookName}"><p>${bookSuggestionName}</p></a>
-                 <a href="#" class="${index} book-cover" id= "${encBookName}"><img src="${resultObj['items'][0]['volumeInfo']['imageLinks']['smallThumbnail']}" class = "cover-image" alt= "Image of the book cover of ${bookSuggestionName}"></a>
+                 <a href="#" class="${index} book-cover-link" id= "${encBookName}"><img src="${resultObj['items'][0]['volumeInfo']['imageLinks']['smallThumbnail']}" class = "cover-image" alt= "Image of the book cover of ${bookSuggestionName}"></a>
                </div>
               `);
 
