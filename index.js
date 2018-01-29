@@ -181,7 +181,7 @@ function requestToAmazonForUsedPrices(pricesUrl){
 
       $(".js-price-container").empty();
       $(".js-price-container").prepend(
-        `<header role= "navigation" class= "prices-header"
+        `<header role= "navigation" class= "prices-header">
             <h3>Used Book Prices</h3>
          </header>`);
 

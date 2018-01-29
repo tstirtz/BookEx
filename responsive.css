@@ -48,7 +48,7 @@
     text-align: center;
     margin: 0px 10px 30px 10px;
     padding-top: 30px;
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid #728CA6;
   }
 
   p{
@@ -101,7 +101,7 @@
     align-items: center;
     margin: 10px 0px 10px 0px;
     padding-bottom: 5px;
-    border-bottom: 1px solid #cccccc;
+    border-bottom: 1px solid #728CA6;
     font-size: 14px;
   }
 
