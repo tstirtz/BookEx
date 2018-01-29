@@ -91,13 +91,14 @@
   }
 
   .price-container{
-    margin: 2.5%;
+    margin: 2%;
     display: flex;
     flex-direction: column;
   }
 
   .individual-price-info{
     display: flex;
+    align-items: center;
     margin: 10px 0px 10px 0px;
     padding-bottom: 5px;
     border-bottom: 1px solid #cccccc;
@@ -111,6 +112,7 @@
   .seller-name{
     display: none;
   }
+
 
 }
 

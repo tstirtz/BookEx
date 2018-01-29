@@ -239,7 +239,7 @@ function requestToAmazonForUsedPrices(pricesUrl){
         let offerIdValue = offerIds[index]['value'];
 
 
-        $(`.${index}`).append(`<a href = "#" type="button" class= "js-purchase-book-${index}" id="${offerIdValue}" >Buy Off Amazon</button></a>`);
+        $(`.${index}`).append(`<div class="purchase-button"><a href = "#" type="button" class= "js-purchase-book-${index}" id="${offerIdValue}">Buy</button></a></div>`);
 
         handleBuyButton(index);
       });

@@ -105,5 +105,18 @@ h2{
 
 p{
   font-family: 'Abril Fatface', cursive;
+}
 
+.purchase-button{
+  height: 20px;
+  border: 1px solid #4A6B8A;
+  border-radius: 3px;
+  background-color: #4A6B8A;
+}
+
+.purchase-button a{
+  text-decoration: none;
+  padding: 4.5px;
+  color: white;
+  font-size: 12px;
 }
