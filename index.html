@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css?family=Vollkorn" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Amiri|Great+Vibes|Montserrat" rel="stylesheet">
     <link rel="stylesheet" href="style.css" type="text/css">
+    <link rel="stylesheet" href="responsive.css" type="text/css">
   </head>
   <body>
       <section role="region" class = "start-page">
@@ -15,8 +16,8 @@
         <form action="#" class = "search-form">
           <fieldset>
             <!--How important is a legend for accessiblity, I really don't want it to be displayed-->
-            <label for="start-page-search">Get Book Suggestions</label>
-            <input type="text" name="book-search-query" placeholder="Book Title" id="book-search-query" class="js-book-search-input">
+            <label for="start-page-search" class="search-label">Input a book and we will suggest books that are similar.</label>
+            <input type="text" name="book-search-query" placeholder="Book Title" id="book-search-query" class="js-book-search-input book-search-input">
             <button type="submit" class="js-search-button">Search</button>
           </fieldset>
         </form>
