@@ -12,7 +12,7 @@ body{
 }
 
 main{
-  background-color: rgba(255, 236, 170, .2);
+  background-color: rgba(255, 236, 170, .1);
 }
 
 .start-page{
@@ -20,8 +20,8 @@ main{
   height: 100%;
   background:
   linear-gradient(
-    rgba(255, 236, 170, .2),
-    rgba(255, 236, 170, .2)
+    rgba(115, 140, 166, .2),
+    rgba(115, 140, 166, .2)
     ),
   url("https://static.pexels.com/photos/159697/book-reading-library-literature-159697.jpeg");
 background-size: cover;
