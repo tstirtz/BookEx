@@ -42,7 +42,7 @@ function handleSearchButton(){
       if(json.Similar.Results.length === 0){
         $(".js-book-suggestions").append(`<p>Sorry, we could't find anything related to "${searchInputValue}". Check spelling or try another book.</p>`);
       }else {
-        $(".js-main").prepend(`<h2>Books related to "${searchInputValue}"</h2>`);
+        $(".js-suggestions-header").prepend(`<h2>Books related to "${searchInputValue}"</h2>`);
         console.log(json.Similar.Results);
 
         handleSuggestionClick(json);

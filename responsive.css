@@ -1,4 +1,7 @@
 @media (max-width: 426px){
+  * {
+    box-sizing: border-box;
+  }
 
   .start-page{
     display: flex;
@@ -44,9 +47,16 @@
   }
 
   main h2{
-    font-size: 22px;
+    font-size: 20px;
     text-align: center;
+    margin: 0px 10px 30px 10px;
+    padding-top: 30px;
+    border-bottom: 1px solid black;
+  }
 
+  p{
+    font-size: 13px;
+    margin-bottom: 5px;
   }
 
   .book-suggestions {
@@ -59,21 +69,31 @@
 
   .cover-image{
     margin-top: auto;
-    height: 200px;
-    width: 133.33px;
-    margin: 5px;
+    height: 165px;
+    width: 110px;
+    margin: 10px;
   }
+
 
   .book-title{
     margin: auto;
+    max-width: 120px;
     text-align: center;
   }
 
   .result-item{
-    margin-bottom: 15px;
+    margin-bottom: 40px;
     margin-top: 15px;
   }
+
+  .js-book-suggestions p{
+    background-color: ;
+  }
+
 }
+
+
+
 
 * {
   box-sizing: border-box;
