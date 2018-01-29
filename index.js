@@ -66,8 +66,10 @@ function handleSearchButton(){
 
 
             $(".js-book-suggestions").append(
-              `<a href="#" class="${index}" id= "${encBookName}"><p>${bookSuggestionName}</p></a>
-               <a href="#" class="${index}" id= "${encBookName}"><img src="${resultObj['items'][0]['volumeInfo']['imageLinks']['smallThumbnail']}"></a>
+              `<div class="result-item">
+                <a href="#" class="${index} book-title" id=     "${encBookName}"><p>${bookSuggestionName}</p></a>
+                 <a href="#" class="${index} book-cover" id= "${encBookName}"><img src="${resultObj['items'][0]['volumeInfo']['imageLinks']['smallThumbnail']}" class = "cover-image" alt= "Image of the book cover of ${bookSuggestionName}"></a>
+               </div>
               `);
 
             });
@@ -286,7 +288,6 @@ function requestFromTasteKid(searchVal, callback){
     k: keys.tasteDive,
     verbose: 1,
     crossDomain: true,
-    limit: 10,
     format:"json"}
 
   });

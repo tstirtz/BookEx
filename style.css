@@ -90,3 +90,8 @@ fieldset{
   transform: translateY(4px);
   -moz-appearance: button-bevel;
 }
+
+.result-item{
+  margin: 15px;
+  border-bottom: 1px solid gray;
+}

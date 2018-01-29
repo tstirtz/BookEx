@@ -1,5 +1,5 @@
 @media (max-width: 426px){
-  
+
   .start-page{
     display: flex;
     flex-direction: column;
@@ -35,6 +35,19 @@
 
   .search-label{
     display: none;
+  }
+
+  .book-title{
+    text-decoration: none;
+    color: black;
+  }
+
+  .book-suggestions h2{
+    font-size: 18px;
+  }
+
+  .book-cover{
+    
   }
 }
 
