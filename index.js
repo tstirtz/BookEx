@@ -67,8 +67,8 @@ function handleSearchButton(){
 
             $(".js-book-suggestions").append(
               `<div class="result-item">
-                <a href="#" class="${index} book-title" id=     "${encBookName}"><p>${bookSuggestionName}</p></a>
-                 <a href="#" class="${index} book-cover-link"><img src="${resultObj['items'][0]['volumeInfo']['imageLinks']['smallThumbnail']}" class = "cover-image" alt= "Image of the book cover of ${bookSuggestionName}"></a>
+                <p>${bookSuggestionName}</p>
+                 <a href="#" class="${index} book-cover-link" id= "${encBookName}"><img src="${resultObj['items'][0]['volumeInfo']['imageLinks']['smallThumbnail']}" class = "cover-image" alt= "Image of the book cover of ${bookSuggestionName}"></a>
                </div>
               `);
 
