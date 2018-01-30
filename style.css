@@ -12,7 +12,7 @@ body{
 }
 
 .main-container{
-  background-color: rgba(255, 236, 170, .3);
+  background-color: rgba(255, 236, 170, .2);
 }
 
 .start-page{
@@ -165,12 +165,12 @@ fieldset{
   height: 50px;
   width: 80%;
   margin: 30px auto 10px auto;
-  border-bottom: 1px solid #728CA6;
+  border-bottom: 1px solid #365872;
 }
 
 .book-suggestions h2{
   margin-top: 50px;
-  border-bottom: 1px solid #728CA6;
+  border-bottom: 1px solid #365872;
 }
 
 .synopsis{
@@ -190,15 +190,15 @@ h3{
   text-align: center;
   margin: 25px;
   padding-bottom: 15px;
-  border-bottom: 2px solid #728CA6;
+  border-bottom: 2px solid #365872;
 }
 
 .purchase-button{
   cursor: pointer;
   height: 20px;
-  border: 1px solid #4A6B8A;
+  border: 1px solid #365872;
   border-radius: 3px;
-  background-color: #4A6B8A;
+  background-color: #365872;
   text-align: center;
 }
 
