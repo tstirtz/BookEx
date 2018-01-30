@@ -72,6 +72,7 @@ fieldset{
 }
 
 .book-search-input::placeholder{
+  font-family: 'Open Sans', sans-serif;
   color: black;
 }
 
@@ -171,6 +172,7 @@ fieldset{
 .book-suggestions h2{
   margin-top: 50px;
   border-bottom: 1px solid #365872;
+  font-family: 'Vollkorn', serif;
 }
 
 .synopsis{
@@ -226,4 +228,8 @@ h3{
 .individual-price-info div{
   display: inline-block;
   margin: 10px;
+}
+
+p{
+  font-family: 'Open Sans', sans-serif;
 }
