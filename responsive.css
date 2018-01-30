@@ -145,6 +145,16 @@
 
 
 
+/* Tablet */
+ @media (max-width: 769px){
+  section.book-suggestions.row{
+    padding-left: 2.5%;
+    padding-right: 2.5%;
+  }
+
+
+}
+
 
 * {
   box-sizing: border-box;
