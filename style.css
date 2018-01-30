@@ -168,6 +168,15 @@ fieldset{
   border-bottom: 1px solid #728CA6;
 }
 
+.book-suggestions h2{
+  margin-top: 50px;
+  border-bottom: 1px solid #728CA6;
+}
+
+.book-suggestions p{
+  margin: 30px 0px 60px 0px;
+}
+
 .cover-image{
   margin-top: auto;
   height: 187.5px;
@@ -179,16 +188,18 @@ h3{
   font-family: 'Vollkorn', serif;
   font-size: 17px;
   text-align: center;
-  margin: 10px;
-  padding-bottom: 5px;
+  margin: 25px;
+  padding-bottom: 15px;
   border-bottom: 2px solid #728CA6;
 }
 
 .purchase-button{
+  cursor: pointer;
   height: 20px;
   border: 1px solid #4A6B8A;
   border-radius: 3px;
   background-color: #4A6B8A;
+  text-align: center;
 }
 
 .purchase-button a{
@@ -203,15 +214,16 @@ h3{
 }
 
 .individual-price-info{
-  /* display: flex;
+  display: flex;
   align-items: center;
-  justify-content: space-between; */
+  justify-content: center;
   margin: 10px 0px 10px 0px;
   padding-bottom: 5px;
   border-bottom: 1px solid #728CA6;
   font-size: 14px;
 }
 
-.individual-price-info span{
-  margin: 5px;
+.individual-price-info div{
+  display: inline-block;
+  margin: 10px;
 }
