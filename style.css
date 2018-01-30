@@ -11,7 +11,7 @@ body{
   width: 100%;
 }
 
-main{
+.main-container{
   background-color: rgba(255, 236, 170, .1);
 }
 
@@ -67,6 +67,10 @@ fieldset{
   border-bottom: 1px solid black;
   font-size: 16px;
   outline: none;
+}
+
+.book-search-input::placeholder{
+  color: black;
 }
 
 .input-and-button{
@@ -128,9 +132,24 @@ fieldset{
   color: black;
 }
 
-h2{
+.book-suggestions{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  clear: both;
+}
+
+.suggestions-header{
+  float: left;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.suggestions-header h2{
   font-family: 'Vollkorn', serif;
   font-weight: bolder;
+  text-align: center;
+  height: 50px;
 }
 
 h3{
