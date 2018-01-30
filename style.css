@@ -25,8 +25,8 @@ body{
   linear-gradient(
     rgba(115, 140, 166, .2),
     rgba(115, 140, 166, .2)
-    ),
-  url("https://static.pexels.com/photos/159697/book-reading-library-literature-159697.jpeg");
+     ),
+  url("https://images.pexels.com/photos/159697/book-reading-library-literature-159697.jpeg?w=940&h=650&auto=compress&cs=tinysrgb");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
