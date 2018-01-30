@@ -68,7 +68,7 @@ function handleSearchButton(){
             $(".js-book-suggestions").append(
               `<div class="result-item">
                 <a href="#" class="${index} book-title" id=     "${encBookName}"><p>${bookSuggestionName}</p></a>
-                 <a href="#" class="${index} book-cover-link" id= "${encBookName}"><img src="${resultObj['items'][0]['volumeInfo']['imageLinks']['smallThumbnail']}" class = "cover-image" alt= "Image of the book cover of ${bookSuggestionName}"></a>
+                 <a href="#" class="${index} book-cover-link"><img src="${resultObj['items'][0]['volumeInfo']['imageLinks']['smallThumbnail']}" class = "cover-image" alt= "Image of the book cover of ${bookSuggestionName}"></a>
                </div>
               `);
 
@@ -130,7 +130,7 @@ function handleSuggestionClick(tasteDiveObj){
 
     $(".js-book-suggestions").append(
       `<h2>${title}</h2>
-      <p>${synopsis}</p>`);
+      <p class= "synopsis">${synopsis}</p>`);
 
     console.log("end of handleSuggestionClick working");
   });
@@ -203,7 +203,7 @@ function requestToAmazonForUsedPrices(pricesUrl){
       $.each(shippingData, function(index){
         let shippingCost = shippingData[index]['firstChild']['nextElementSibling']['children'][0]['innerText'];
 
-        $(`.${index}`).append(`<div class= "col-2">Shipping:<br>${shippingCost}</div>`);
+        $(`.${index}`).append(`<div class= "col-2"><strong>Shipping:</strong><br>${shippingCost}</div>`);
       });
 
       //retrieve shipping dates
@@ -212,7 +212,7 @@ function requestToAmazonForUsedPrices(pricesUrl){
         let estimatedShipping = shippingDates[index]['children'][0]['childNodes'][2]['data'];
 
 
-        $(`.${index}`).append(`<div class= "col-2"> Estimated Shipping Date<br>${estimatedShipping}</div>`);
+        $(`.${index}`).append(`<div class= "col-2"><strong>Shipping Date:</strong><br>${estimatedShipping}</div>`);
       });
 
       //retrieve seller name
@@ -228,7 +228,7 @@ function requestToAmazonForUsedPrices(pricesUrl){
 
           console.log(sellerRating);
 
-          $(`.${index}`).append(`<div class= "seller-name col-2">${sellerName}</div><div>Seller Rating:<br> ${sellerRating}</div>`);
+          $(`.${index}`).append(`<div class= "seller-name col-2"><strong>Seller:</strong><br>${sellerName}</div><div><strong>Seller Rating:</strong><br> ${sellerRating}</div>`);
 
       });
 
