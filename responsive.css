@@ -7,11 +7,16 @@
     justify-content: center;
   }
 
+  .start-page-container{
+    width: 80%;
+  }
+
   h1{
-    font-size: 28px;
+    font-size: 22px;
     display: block;
     text-align: center;
-    width: 90%;
+    width: 100%;
+    margin: 15px 0px 15px 0px;
   }
 
   fieldset{
@@ -20,7 +25,7 @@
   }
 
   .search-form{
-    width: 80%;
+    width: 100%;
   }
 
   .input-and-button{
@@ -30,7 +35,12 @@
   }
 
   .book-search-input{
-    font-size: 16px;
+    font-size: 12px;
+  }
+
+  .book-search-input::placeholder{
+    color: black;
+    font-size: 14px;
   }
 
   .search-label{
@@ -43,12 +53,17 @@
     display: block;
   }
 
-  main h2{
+  .suggestions-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .suggestions-header h2{
+    margin: 30px auto 15px auto;
+    width: 90%;
+    height: auto;
     font-size: 20px;
-    text-align: center;
-    margin: 0px 10px 30px 10px;
-    padding-top: 30px;
-    border-bottom: 2px solid #728CA6;
   }
 
   p{
@@ -62,6 +77,8 @@
     align-items: flex-end;
     justify-content: center;
     flex-wrap: wrap;
+    padding-left: 5px;
+    padding-right: 5px;
   }
 
   .cover-image{
@@ -79,6 +96,8 @@
   }
 
   .result-item{
+    height: 250px;
+    width: 115px;
     margin-bottom: 40px;
     margin-top: 15px;
   }
@@ -90,16 +109,16 @@
     margin: 5%;
   }
 
-  .price-container{
-    margin: 2%;
+  div.price-container.row{
     display: flex;
     flex-direction: column;
+    padding: 0px;
   }
 
   .individual-price-info{
     display: flex;
-    align-items: center;
-    margin: 10px 0px 10px 0px;
+    justify-content: space-between;
+    margin: 15px;
     padding-bottom: 5px;
     border-bottom: 1px solid #728CA6;
     font-size: 14px;
@@ -109,10 +128,18 @@
     margin: 5px;
   }
 
-  .seller-name{
+  div.shipping-date{
     display: none;
   }
 
+  div.seller-name{
+    display: none;
+  }
+
+  section.book-suggestions.row{
+    padding-left: 5px;
+    padding-right: 5px;
+  }
 
 }
 
