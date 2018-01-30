@@ -292,7 +292,8 @@ function requestFromTasteKid(searchVal, callback){
     k: keys.tasteDive,
     verbose: 1,
     crossDomain: true,
-    format:"json"}
+    format: "json"
+  }
 
   });
 

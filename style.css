@@ -12,7 +12,7 @@ body{
 }
 
 .main-container{
-  background-color: rgba(255, 236, 170, .1);
+  background-color: rgba(255, 236, 170, .3);
 }
 
 .start-page{
@@ -119,8 +119,14 @@ fieldset{
 }
 
 .result-item{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
   margin-left: 15px;
   margin-right: 15px;
+  width: 150px;
+  height: 290px;
   border-bottom: 1px solid #728CA6;
 }
 
@@ -132,10 +138,15 @@ fieldset{
   color: black;
 }
 
+.result-item p{
+  text-align: center;
+}
+
 .book-suggestions{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
   clear: both;
 }
 
@@ -150,6 +161,16 @@ fieldset{
   font-weight: bolder;
   text-align: center;
   height: 50px;
+  width: 80%;
+  margin: 30px auto 10px auto;
+  border-bottom: 1px solid #728CA6;
+}
+
+.cover-image{
+  margin-top: auto;
+  height: 187.5px;
+  width: 125px;
+  margin: 10px;
 }
 
 h3{
