@@ -193,7 +193,7 @@ function requestToAmazonForUsedPrices(pricesUrl){
         let bookPrices = priceInfo[index]['innerHTML'];
         $(".js-price-container").append(
           `<div class= "${index} individual-price-info">
-            <span>${bookPrices}</span>
+            <span class= "col-6">${bookPrices}</span>
           </div>`
         );
       });
@@ -203,7 +203,7 @@ function requestToAmazonForUsedPrices(pricesUrl){
       $.each(shippingData, function(index){
         let shippingCost = shippingData[index]['firstChild']['nextElementSibling']['children'][0]['innerText'];
 
-        $(`.${index}`).append(`<span>Shipping: ${shippingCost}</span>`);
+        $(`.${index}`).append(`<span class= "col-6">Shipping:<br>${shippingCost}</span>`);
       });
 
       //retrieve shipping dates
@@ -212,7 +212,7 @@ function requestToAmazonForUsedPrices(pricesUrl){
         let estimatedShipping = shippingDates[index]['children'][0]['childNodes'][2]['data'];
 
 
-        $(`.${index}`).append(`<span> Estimated Shipping Date ${estimatedShipping}</span>`);
+        $(`.${index}`).append(`<span class= "col-6"> Estimated Shipping Date<br>${estimatedShipping}</span>`);
       });
 
       //retrieve seller name
@@ -228,7 +228,7 @@ function requestToAmazonForUsedPrices(pricesUrl){
 
           console.log(sellerRating);
 
-          $(`.${index}`).append(`<span class= "seller-name">${sellerName}</span><span>Seller Rating: ${sellerRating}</span>`);
+          $(`.${index}`).append(`<span class= "seller-name col-6">${sellerName}</span><span>Seller Rating:<br> ${sellerRating}</span>`);
 
       });
 
@@ -240,7 +240,7 @@ function requestToAmazonForUsedPrices(pricesUrl){
         let offerIdValue = offerIds[index]['value'];
 
 
-        $(`.${index}`).append(`<div class="purchase-button"><a href = "#" type="button" class= "js-purchase-book-${index}" id="${offerIdValue}">Buy</button></a></div>`);
+        $(`.${index}`).append(`<div class="purchase-button col-6"><a href = "#" type="button" class= "js-purchase-book-${index}" id="${offerIdValue}">Buy</button></a></div>`);
 
         handleBuyButton(index);
       });

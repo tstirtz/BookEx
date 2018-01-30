@@ -27,7 +27,9 @@ body{
     rgba(115, 140, 166, .2)
     ),
   url("https://static.pexels.com/photos/159697/book-reading-library-literature-159697.jpeg");
-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .start-page-container{
@@ -40,9 +42,9 @@ background-size: cover;
 
 h1{
   font-family: 'Vollkorn', serif;
-  font-size: 38px;
+  font-size: 48px;
   font-weight: bold;
-  margin: 10px 0px 10px 0px;
+  margin: 20px 0px 30px 0px;
 }
 
 .search-form{
@@ -113,7 +115,7 @@ fieldset{
 .error-message{
   background-color: rgba(255, 255, 255, .7);
   font-family: 'Lato', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: lighter;
   text-align: center;
 }
@@ -194,4 +196,22 @@ h3{
   padding: 4.5px;
   color: white;
   font-size: 12px;
+}
+
+.price-container{
+  margin: 2%;
+}
+
+.individual-price-info{
+  /* display: flex;
+  align-items: center;
+  justify-content: space-between; */
+  margin: 10px 0px 10px 0px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #728CA6;
+  font-size: 14px;
+}
+
+.individual-price-info span{
+  margin: 5px;
 }
