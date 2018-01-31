@@ -132,23 +132,19 @@ function handleSuggestionClick(tasteDiveObj){
 
 
 function getPricesOfClickedBook(amazonData){
-    console.log("--------------------");
-    console.log(amazonData);
 
     //Check if browser is Chrome
     if(navigator.userAgent.indexOf("Chrome") > -1  || navigator.userAgent.indexOf("Safari") > -1){
       let allOffersUrlChrome = amazonData.getElementsByTagName("ItemLinks")[0].childNodes[6].childNodes[1].childNodes[0].nodeValue;
-        console.log(allOffersUrlChrome);
+
 
       requestToAmazonForUsedPrices(allOffersUrlChrome);
     }//Check if browser is Firefox
     else if (navigator.userAgent.indexOf("Firefox") > -1){
       let allOffersUrlFirefox = amazonData.activeElement['childNodes'][1]['childNodes'][4]['childNodes'][2]['childNodes'][6]['childNodes'][1]['innerHTML'];
-      console.log(allOffersUrlFirefox);
 
       requestToAmazonForUsedPrices(allOffersUrlFirefox);
     }
-    console.log("end of getPricesOfClickedBook working");
 }
 
 
@@ -156,8 +152,6 @@ function getPricesOfClickedBook(amazonData){
 
 function requestToAmazonForUsedPrices(pricesUrl){
   //when book suggestion is clicked make call to amazon offer listing url api
-  console.log("start of requestToAmazonForUsedPrices working");
-  console.log(pricesUrl);
 
   $.ajax({
     url: "https://rift-lycra.glitch.me/postmedata",
@@ -167,7 +161,6 @@ function requestToAmazonForUsedPrices(pricesUrl){
       //parse data to html
       parser= new DOMParser();
       htmlDoc = parser.parseFromString(data, 'text/html')
-      console.log(htmlDoc);
 
       $(".js-price-container").empty();
       $(".js-price-container").prepend(
@@ -198,7 +191,7 @@ function requestToAmazonForUsedPrices(pricesUrl){
       //retrieve shipping dates
       let shippingDates= htmlDoc.getElementsByClassName("olpAvailabilityExpander");
 
-      console.log(shippingDates);
+
       $.each(shippingDates, function(index){
         let estimatedShipping = shippingDates[index]['children'][0]['childNodes'][2]['data'];
 
@@ -208,7 +201,7 @@ function requestToAmazonForUsedPrices(pricesUrl){
 
       //retrieve seller name
       let getSellerInfo = htmlDoc.getElementsByClassName("olpSellerColumn");
-      console.log(getSellerInfo);
+
       $.each(getSellerInfo, function(index){
 
 
@@ -226,7 +219,7 @@ function requestToAmazonForUsedPrices(pricesUrl){
 
 
           if(getSellerInfo[index]['childNodes'].length < 4){
-            console.log(getSellerInfo[index]['childNodes'].length);
+
             let sellerRating = "No Seller Rating";
 
             $(`.${index}`).append(`<div><strong>Seller Rating:</strong><br> ${sellerRating}</div>`);
@@ -306,7 +299,6 @@ function requestFromTasteKid(searchVal, callback){
 
 function requestFromGoogleBooks(searchVal, callback){
   //make call to Google Books api to get book cover images
-  console.log(searchVal);
   const requestSetting={
     q: `${searchVal}`,
     intitle: `${searchVal}`,
@@ -358,7 +350,6 @@ AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Con
        'Access-Control-Allow-Origin': '*'
     },
     success: function(requestObj){
-      console.log(requestObj);
       getPricesOfClickedBook(requestObj);
     }
   });
