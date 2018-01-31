@@ -141,6 +141,9 @@
     padding-right: 5px;
   }
 
+  .visibility{
+    display: none;
+  }
 }
 
 
@@ -150,6 +153,10 @@
   section.book-suggestions.row{
     padding-left: 2.5%;
     padding-right: 2.5%;
+  }
+
+  .visibility{
+    display: none;
   }
 
 
