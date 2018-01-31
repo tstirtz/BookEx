@@ -132,10 +132,11 @@ function handleSuggestionClick(tasteDiveObj){
 
 
 function getPricesOfClickedBook(amazonData){
-    console.log("start of getPricesOfClickedBook working");
+    console.log("--------------------");
+    console.log(amazonData);
 
     //Check if browser is Chrome
-    if(navigator.userAgent.indexOf("Chrome") > -1){
+    if(navigator.userAgent.indexOf("Chrome") > -1  || navigator.userAgent.indexOf("Safari") > -1){
       let allOffersUrlChrome = amazonData.getElementsByTagName("ItemLinks")[0].childNodes[6].childNodes[1].childNodes[0].nodeValue;
         console.log(allOffersUrlChrome);
 
@@ -196,6 +197,8 @@ function requestToAmazonForUsedPrices(pricesUrl){
 
       //retrieve shipping dates
       let shippingDates= htmlDoc.getElementsByClassName("olpAvailabilityExpander");
+
+      console.log(shippingDates);
       $.each(shippingDates, function(index){
         let estimatedShipping = shippingDates[index]['children'][0]['childNodes'][2]['data'];
 
@@ -205,14 +208,34 @@ function requestToAmazonForUsedPrices(pricesUrl){
 
       //retrieve seller name
       let getSellerInfo = htmlDoc.getElementsByClassName("olpSellerColumn");
-
+      console.log(getSellerInfo);
       $.each(getSellerInfo, function(index){
 
-          let sellerName = getSellerInfo[index]['childNodes'][1]['childNodes'][1]['childNodes'][1]['childNodes'][0]['nodeValue'];
 
-          let sellerRating = getSellerInfo[index]['childNodes'][3]['childNodes'][3]['childNodes'][0]['innerText'];
+          if(getSellerInfo[index]['childNodes'][1]['childNodes'][1]['childNodes']['length'] === 0){
 
-          $(`.${index}`).append(`<div class= "seller-name col-2"><strong>Seller:</strong><br>${sellerName}</div><div><strong>Seller Rating:</strong><br> ${sellerRating}</div>`);
+            let sellerName = "No Seller Name";
+
+            $(`.${index}`).append(`<div class= "seller-name col-2"><strong>Seller:</strong><br>${sellerName}</div>`);
+
+          }else {
+            let sellerName = getSellerInfo[index]['childNodes'][1]['childNodes'][1]['childNodes'][1]['childNodes'][0]['nodeValue'];
+
+            $(`.${index}`).append(`<div class= "seller-name col-2"><strong>Seller:</strong><br>${sellerName}</div>`);
+          }
+
+
+          if(getSellerInfo[index]['childNodes'].length < 4){
+            console.log(getSellerInfo[index]['childNodes'].length);
+            let sellerRating = "No Seller Rating";
+
+            $(`.${index}`).append(`<div><strong>Seller Rating:</strong><br> ${sellerRating}</div>`);
+          }else{
+            let sellerRating = getSellerInfo[index]['childNodes'][3]['childNodes'][3]['childNodes'][0]['innerText'];
+
+            $(`.${index}`).append(`<div><strong>Seller Rating:</strong><br> ${sellerRating}</div>`);
+          }
+
 
       });
 
