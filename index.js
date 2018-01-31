@@ -50,7 +50,7 @@ function handleSearchButton(){
         const resultItems = json.Similar.Results.map(function(result, index){
 
           const bookSuggestionName = result.Name;
-          const bookSynopsis = result.wTeaser;
+          const bookSynopsis = result.wTeaser; //wTeaser is the book synopsis
           const removeComma = bookSuggestionName.replace(/\'/, '');
           const encBookName = encodeURIComponent(removeComma);
           console.log(index);
@@ -58,12 +58,8 @@ function handleSearchButton(){
           console.log(encBookName);
 
           requestFromGoogleBooks(bookSuggestionName, function(resultObj){
-            console.log("start of requestFromGoogleBooks working");
+
             console.log(resultObj);
-            console.log("end of requestFromGoogleBooks working");
-
-
-
 
             $(".js-book-suggestions").append(
               `<div class="result-item">
@@ -112,8 +108,6 @@ function clearSearchInput(){
 function handleSuggestionClick(tasteDiveObj){
   //book suggestion or title link is clicked
   $(".js-book-suggestions").on('click', "a", function(){
-      console.log("start of handleSuggestionClick working");
-      // event.stopPropagation();
 
     handleNewSearch();
 
@@ -121,7 +115,6 @@ function handleSuggestionClick(tasteDiveObj){
     console.log(tasteDiveObj);
 
     let clickedEncodedTitle = $(this).attr("id");//get ID value, which is the encoded title, of the clicked links to be passed
-    console.log(clickedEncodedTitle);
 
     requestFromAmazonProdAdd(clickedEncodedTitle);
 
@@ -132,7 +125,6 @@ function handleSuggestionClick(tasteDiveObj){
       `<h2>${title}</h2>
       <p class= "synopsis">${synopsis}</p>`);
 
-    console.log("end of handleSuggestionClick working");
   });
 }
 
@@ -145,7 +137,6 @@ function getPricesOfClickedBook(amazonData){
     //Check if browser is Chrome
     if(navigator.userAgent.indexOf("Chrome") > -1){
       let allOffersUrlChrome = amazonData.getElementsByTagName("ItemLinks")[0].childNodes[6].childNodes[1].childNodes[0].nodeValue;
-        console.log("-----------------");
         console.log(allOffersUrlChrome);
 
       requestToAmazonForUsedPrices(allOffersUrlChrome);
@@ -170,12 +161,9 @@ function requestToAmazonForUsedPrices(pricesUrl){
   $.ajax({
     url: "https://rift-lycra.glitch.me/postmedata",
     type: 'GET',
-    // contentType: "text/plain; charset=utf-8",
-    // dataType: 'text',
     data: {url: pricesUrl},
-    // processData: false,
     success: function(data){
-
+      //parse data to html
       parser= new DOMParser();
       htmlDoc = parser.parseFromString(data, 'text/html')
       console.log(htmlDoc);
@@ -217,16 +205,12 @@ function requestToAmazonForUsedPrices(pricesUrl){
 
       //retrieve seller name
       let getSellerInfo = htmlDoc.getElementsByClassName("olpSellerColumn");
-      console.log(getSellerInfo)
+
       $.each(getSellerInfo, function(index){
 
           let sellerName = getSellerInfo[index]['childNodes'][1]['childNodes'][1]['childNodes'][1]['childNodes'][0]['nodeValue'];
 
-          console.log(sellerName);
-
           let sellerRating = getSellerInfo[index]['childNodes'][3]['childNodes'][3]['childNodes'][0]['innerText'];
-
-          console.log(sellerRating);
 
           $(`.${index}`).append(`<div class= "seller-name col-2"><strong>Seller:</strong><br>${sellerName}</div><div><strong>Seller Rating:</strong><br> ${sellerRating}</div>`);
 
@@ -236,9 +220,7 @@ function requestToAmazonForUsedPrices(pricesUrl){
       let offerIds = htmlDoc.getElementsByName("offeringID.1");
       $.each(offerIds, function(index, value){
 
-
         let offerIdValue = offerIds[index]['value'];
-
 
         $(`.${index}`).append(`<div class="purchase-button col-2"><a href = "#" type="button" class= "js-purchase-book-${index}" id="${offerIdValue}">Buy <span class= "visibility">From Amazon</span></button></a></div>`);
 
@@ -250,7 +232,6 @@ function requestToAmazonForUsedPrices(pricesUrl){
       console.log("cannot get data");
     }
   });
-  console.log("end of requestToAmazonForUsedPrices working");
 }
 
 
@@ -259,9 +240,7 @@ function requestToAmazonForUsedPrices(pricesUrl){
 function handleBuyButton(index){
   //send request to amazon with offer listing ID on down click
   //on up click take user to Purchase URL
-  console.log("buy button click function working");
   $('.js-sale-info').on('click', `.js-purchase-book-${index}`, function(){
-    console.log("buy button click function working");
     let offerId = $(this).attr("id");
 
       cartCreateAWSRequest(offerId, index);
@@ -309,7 +288,6 @@ function requestFromGoogleBooks(searchVal, callback){
     q: `${searchVal}`,
     intitle: `${searchVal}`,
     key: keys.googleBooks,
-    //orderBy: "relevance",
     maxResults: 1
   };
 
@@ -322,7 +300,7 @@ function requestFromGoogleBooks(searchVal, callback){
 
 
 function requestFromAmazonProdAdd(suggestionTitle){
-
+  //variable to encode the URL into the correct format to pass through CrptoJS encoding script
   let dt = new Date();
   let dateISO = (dt.toISOString());
   let dateMinusMilliSec = dateISO.replace(/\.[0-9]{3}/, '');
@@ -335,7 +313,7 @@ webservices.amazon.com
 /onca/xml
 AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Condition=Used&Keywords=${suggestionTitle}&Operation=ItemSearch&ResponseGroup=ItemAttributes%2COffers%2COfferSummary&SearchIndex=Books&Service=AWSECommerceService&Sort=relevancerank&Timestamp=${encodedUtcDate}&Title=${suggestionTitle}`;//Do not tab this string template over!
 
-
+  //encodes url to create a signature that is added on the end of the URL for request to AWS
   var signature1 = CryptoJS.HmacSHA256(awsUrlForSignature, keys.secretKey);
 
   let sigBase64 = signature1.toString(CryptoJS.enc.Base64);
@@ -354,10 +332,8 @@ AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Con
        'Access-Control-Allow-Origin': '*'
     },
     success: function(requestObj){
-      console.log("start of requestFromAmazonProdAdd working");
       console.log(requestObj);
       getPricesOfClickedBook(requestObj);
-      console.log("end of requestFromAmazonProdAdd working");
     }
   });
 
@@ -366,7 +342,7 @@ AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Con
 
 
 function cartCreateAWSRequest(offerListingId, index){
-
+  //request to AWS to create a cart after buy button is clicked
   let dt = new Date();
   let dateISO = (dt.toISOString());
   let dateMinusMilliSec = dateISO.replace(/\.[0-9]{3}/, '.000');
