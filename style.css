@@ -126,10 +126,9 @@ fieldset{
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  margin-left: 15px;
-  margin-right: 15px;
+  margin: 35px 15px  0px 15px;
   width: 150px;
-  height: 290px;
+  height: 300px;
   border-bottom: 1px solid #728CA6;
 }
 
