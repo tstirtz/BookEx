@@ -291,7 +291,10 @@ function requestFromGoogleBooks(searchVal, callback){
     maxResults: 1
   };
 
-  $.getJSON(googleBooksUrl, requestSetting, callback);
+  $.getJSON(googleBooksUrl, requestSetting, callback).fail(function(){
+      $(".error-message").empty();
+      $(".start-page-container").append(`<div class= "error-message">Sorry there was an error, please try again later.</div>`);
+  });
 
 }
 
