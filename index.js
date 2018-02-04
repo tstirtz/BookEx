@@ -100,7 +100,7 @@ function scrollPage(){
             top: scrollPosition,
             left: 0,
             behavior: "smooth"
-    })}, 3000);
+    })}, 2500);
 }
 
 
@@ -257,7 +257,7 @@ function requestToAmazonForUsedPrices(pricesUrl){
 
         let offerIdValue = offerIds[index]['value'];
 
-        $(`.${index}`).append(`<div class="purchase-button col-2"><a href = "#" type="button" class= "js-purchase-book-${index}" id="${offerIdValue}">Buy <span class= "visibility">From Amazon</span></button></a></div>`);
+        $(`.${index}`).append(`<div class="purchase-button col-2"><a type="button" class= "js-purchase-book-${index}" id="${offerIdValue}">Buy <span class= "visibility">From Amazon</span></button></a></div>`);
 
         handleBuyButton(index);
       });
