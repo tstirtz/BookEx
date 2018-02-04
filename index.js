@@ -29,6 +29,7 @@ function handleSearchButton(){
   $(".js-search-button").on("click", function(event){
     event.preventDefault();
     console.log("click function working");
+
     handleNewSearch();
     let searchInputValue= $(this).prev().val();
 
@@ -42,6 +43,7 @@ function handleSearchButton(){
       if(json.Similar.Results.length === 0){
         $(".start-page-container").append(`<p class= "error-message">Sorry, we could't find anything related to "${searchInputValue}". Check spelling or try another book.</p>`);
       }else {
+        $('.js-main').prop('hidden', false);
         $(".js-suggestions-header").prepend(`<h2>Books related to "${searchInputValue}"</h2>`);
         console.log(json.Similar.Results);
 
@@ -82,7 +84,23 @@ function handleSearchButton(){
       $(".js-search-button").on();
     }
   });
-  console.log("end of handleSearchButton working");
+}
+
+
+
+
+function scrollPage(){
+    console.log("scroll page called");
+
+    setTimeout(function(){
+        //calculate height of start page
+        let scrollPosition = $('.start-page').height();
+        //scroll to position equal to height of starting page
+        window.scroll({
+            top: scrollPosition,
+            left: 0,
+            behavior: "smooth"
+    })}, 2000);
 }
 
 
@@ -124,7 +142,7 @@ function handleSuggestionClick(tasteDiveObj){
     $(".js-book-suggestions").append(
       `<h2>${title}</h2>
       <p class= "synopsis">${synopsis}</p>`);
-
+    scrollPage();
   });
 }
 
@@ -162,6 +180,7 @@ function requestToAmazonForUsedPrices(pricesUrl){
       parser= new DOMParser();
       htmlDoc = parser.parseFromString(data, 'text/html')
 
+      $(".js-sale-info").prop('hidden', false);
       $(".js-price-container").empty();
       $(".js-price-container").prepend(
         `<header role= "navigation" class= "prices-header">
@@ -280,6 +299,7 @@ function requestFromTasteKid(searchVal, callback){
       console.log("Taste Dive error message: " + typeOfError)
       $(".start-page-container").append(`<div class= "error-message">Sorry there was an error from server, please try again.</div>`);
     },
+    complete: scrollPage(),
     data:{
     q:`${searchVal}`,
     type:"books",
