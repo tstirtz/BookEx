@@ -100,7 +100,7 @@ function scrollPage(){
             top: scrollPosition,
             left: 0,
             behavior: "smooth"
-    })}, 2000);
+    })}, 3000);
 }
 
 
@@ -142,7 +142,7 @@ function handleSuggestionClick(tasteDiveObj){
     $(".js-book-suggestions").append(
       `<h2>${title}</h2>
       <p class= "synopsis">${synopsis}</p>`);
-    scrollPage();
+    scrollPage();//Need to adjust scroll position
   });
 }
 
