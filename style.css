@@ -232,3 +232,29 @@ h3{
 p{
   font-family: 'Open Sans', sans-serif;
 }
+
+.price-container{
+    position: relative;
+}
+
+.load-indicator{
+    /* margin-left: auto;
+    margin-right: auto; */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -60px;
+    margin-top: -60px;
+    border: 16px solid #d1dae0; /* Light grey */
+    border-top: 16px solid #365872; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    z-index: 1;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

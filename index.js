@@ -277,7 +277,7 @@ function handleBuyButton(index){
   //on up click take user to Purchase URL
   $('.js-sale-info').on('click', `.js-purchase-book-${index}`, function(){
     let offerId = $(this).attr("id");
-
+        $(".load-indicator").prop('hidden', false);
       cartCreateAWSRequest(offerId, index);
   });
 }
