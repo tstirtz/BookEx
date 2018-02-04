@@ -92,7 +92,15 @@ function handleSearchButton(){
 function scrollPage(){
     console.log("scroll page called");
 
- $(window).scrollTop(1250);
+    setTimeout(function(){
+        //calculate height of start page
+        let scrollPosition = $('.start-page').height();
+        //scroll to position equal to height of starting page
+        window.scroll({
+            top: scrollPosition,
+            left: 0,
+            behavior: "smooth"
+    })}, 3000);
 }
 
 
@@ -134,7 +142,7 @@ function handleSuggestionClick(tasteDiveObj){
     $(".js-book-suggestions").append(
       `<h2>${title}</h2>
       <p class= "synopsis">${synopsis}</p>`);
-
+    scrollPage();//Need to adjust scroll position
   });
 }
 
@@ -291,6 +299,7 @@ function requestFromTasteKid(searchVal, callback){
       console.log("Taste Dive error message: " + typeOfError)
       $(".start-page-container").append(`<div class= "error-message">Sorry there was an error from server, please try again.</div>`);
     },
+    complete: scrollPage(),
     data:{
     q:`${searchVal}`,
     type:"books",
