@@ -291,9 +291,6 @@ function requestFromTasteKid(searchVal, callback){
   $.ajax({
     url: tasteDiveUrl,
     dataType: "jsonp",
-    error: function(){
-      console.log(`request failed`);
-      $(".js-main").append("Sorry, your search failed. Please try again.");},
     success: callback,
     error: function(jqXHRObject, typeOfError){
       console.log("Taste Dive error message: " + typeOfError)
