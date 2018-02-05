@@ -223,7 +223,7 @@ function requestToAmazonForUsedPrices(pricesUrl){
 
       $.each(getSellerInfo, function(index){
 
-
+          //statement to handle if a seller name isn't present in object
           if(getSellerInfo[index]['childNodes'][1]['childNodes'][1]['childNodes']['length'] === 0){
 
             let sellerName = "No Seller Name";
