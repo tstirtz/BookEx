@@ -303,8 +303,7 @@ function requestFromTasteKid(searchVal, callback){
     info: 1,
     k: keys.tasteDive,
     verbose: 1,
-    crossDomain: true,
-    format: "json"
+    crossDomain: true
   }
 
   });
