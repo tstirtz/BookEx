@@ -63,15 +63,24 @@ function handleSearchButton(){
 
             console.log(resultObj);
 
+            if(index === resultItems.length - 1 ){
+                $(".js-book-suggestions").append(
+                  `<div class="result-item">
+                    <p>${bookSuggestionName}</p>
+                     <a class="${index} book-cover-link" id= "${encBookName}"><img src="${resultObj['items'][0]['volumeInfo']['imageLinks']['smallThumbnail']}" class = "cover-image" alt= "Image of the book cover of ${bookSuggestionName}"></a>
+                   </div>
+                  `);
+                  scrollPage();
+            }else{
+
             $(".js-book-suggestions").append(
               `<div class="result-item">
                 <p>${bookSuggestionName}</p>
                  <a class="${index} book-cover-link" id= "${encBookName}"><img src="${resultObj['items'][0]['volumeInfo']['imageLinks']['smallThumbnail']}" class = "cover-image" alt= "Image of the book cover of ${bookSuggestionName}"></a>
                </div>
               `);
-
+                }
             });
-
         });
       }
     });
@@ -90,17 +99,17 @@ function handleSearchButton(){
 
 
 function scrollPage(){
-    console.log("scroll page called");
+    console.log("outside of setTimeout");
 
-    setTimeout(function(){
         //calculate height of start page
         let scrollPosition = $('.start-page').height();
         //scroll to position equal to height of starting page
+        console.log("scroll page called", scrollPosition);
         window.scroll({
             top: scrollPosition,
             left: 0,
             behavior: "smooth"
-    })}, 2500);
+    });
 }
 
 
@@ -134,8 +143,8 @@ function handleSuggestionClick(tasteDiveObj){
 
     let clickedEncodedTitle = $(this).attr("id");//get ID value, which is the encoded title, of the clicked links to be passed
 
-    requestFromAmazonProdAdd(clickedEncodedTitle);
-
+    requestFromAmazonProdAdd(clickedEncodedTitle, function(responseObj){
+         getPricesOfClickedBook(responseObj);
     let synopsis = tasteDiveObj["Similar"]["Results"][clickedBook]["wTeaser"];
     let title = tasteDiveObj["Similar"]["Results"][clickedBook]["Name"];
 
@@ -143,6 +152,7 @@ function handleSuggestionClick(tasteDiveObj){
       `<h2>${title}</h2>
       <p class= "synopsis">${synopsis}</p>`);
     scrollPage();//Need to adjust scroll position
+    });
   });
 }
 
@@ -296,14 +306,13 @@ function requestFromTasteKid(searchVal, callback){
       console.log("Taste Dive error message: " + typeOfError)
       $(".start-page-container").append(`<div class= "error-message">Sorry there was an error from server, please try again.</div>`);
     },
-    complete: scrollPage(),
     data:{
     q:`${searchVal}`,
     type:"books",
     info: 1,
     k: keys.tasteDive,
     verbose: 1,
-    crossDomain: true
+    crossDomain: true  //specified because dataType is jsonp
   }
 
   });
@@ -333,7 +342,7 @@ function requestFromGoogleBooks(searchVal, callback){
 
 
 
-function requestFromAmazonProdAdd(suggestionTitle){
+function requestFromAmazonProdAdd(suggestionTitle, fn){
   //variable to encode the URL into the correct format to pass through CrptoJS encoding script
   let dt = new Date();
   let dateISO = (dt.toISOString());
@@ -366,7 +375,7 @@ AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Con
        'Access-Control-Allow-Origin': '*'
     },
     success: function(requestObj){
-      getPricesOfClickedBook(requestObj);
+      fn(requestObj);
     }
   });
 
