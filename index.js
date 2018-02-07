@@ -62,7 +62,7 @@ function handleSearchButton(){
           requestFromGoogleBooks(bookSuggestionName, function(resultObj){
 
             console.log(resultObj);
-
+            //if this is the last item then scroll page after it is loaded
             if(index === resultItems.length - 1 ){
                 $(".js-book-suggestions").append(
                   `<div class="result-item">
