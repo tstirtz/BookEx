@@ -120,7 +120,7 @@ function scrollPage(){
 
 
 function handleNewSearch(){
-//change appends to html and these won't be needed
+
   $(".js-suggestions-header").empty();
   $(".js-book-suggestions").empty();
   $(".js-price-container").empty();
@@ -156,7 +156,6 @@ function handleSuggestionClick(tasteDiveObj){
     $(".js-book-suggestions").html(
       `<h2>${title}</h2>
       <p class= "synopsis">${synopsis}</p>`);
-    scrollPage();//Need to adjust scroll position
     });
   });
 }
@@ -276,7 +275,7 @@ function requestToAmazonForUsedPrices(pricesUrl){
 
         handleBuyButton(index);
       });
-
+      scrollPage();
     },
     error: function(){
       console.log("cannot get data");
