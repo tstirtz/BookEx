@@ -13,6 +13,7 @@ body{
 
 .main-container{
   background-color: rgba(255, 236, 170, .2);
+  /* padding-bottom: 30px; */
 }
 
 .start-page{
@@ -128,9 +129,9 @@ fieldset{
   justify-content: flex-end;
   margin: 35px 15px 0px 15px;
   width: 150px;
-  height: 275px;
+  height: 290px;
   padding: 10px;
-  border-bottom: 1px solid #728CA6;
+  /* border-bottom: 1px solid #728CA6; */
   background-color: rgba(128, 161, 193, .2);
 }
 
@@ -145,6 +146,19 @@ fieldset{
 .result-item p{
   text-align: center;
   margin: auto 5px auto 5px;
+}
+
+.result-item-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 35px 15px 0px 15px;
+    width: 150px;
+    height: auto;
+    padding: 10px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #728CA6;
 }
 
 .book-suggestions{

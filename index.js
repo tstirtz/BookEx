@@ -65,19 +65,23 @@ function handleSearchButton(){
             //if this is the last item then scroll page after it is loaded
             if(index === resultItems.length - 1 ){
                 $(".js-book-suggestions").append(
-                  `<div class="result-item">
-                    <p>${bookSuggestionName}</p>
-                     <a class="${index} book-cover-link" id= "${encBookName}"><img src="${resultObj['items'][0]['volumeInfo']['imageLinks']['smallThumbnail']}" class = "cover-image" alt= "Image of the book cover of ${bookSuggestionName}"></a>
+                  `<div class = "result-item-container">
+                      <div class="result-item">
+                        <p>${bookSuggestionName}</p>
+                         <a class="${index} book-cover-link" id= "${encBookName}"><img src="${resultObj['items'][0]['volumeInfo']['imageLinks']['smallThumbnail']}" class = "cover-image" alt= "Image of the book cover of ${bookSuggestionName}"></a>
+                       </div>
                    </div>
                   `);
                   scrollPage();
             }else{
 
             $(".js-book-suggestions").append(
-              `<div class="result-item">
-                <p>${bookSuggestionName}</p>
-                 <a class="${index} book-cover-link" id= "${encBookName}"><img src="${resultObj['items'][0]['volumeInfo']['imageLinks']['smallThumbnail']}" class = "cover-image" alt= "Image of the book cover of ${bookSuggestionName}"></a>
-               </div>
+              `<div class = "result-item-container">
+                  <div class="result-item">
+                    <p>${bookSuggestionName}</p>
+                     <a class="${index} book-cover-link" id= "${encBookName}"><img src="${resultObj['items'][0]['volumeInfo']['imageLinks']['smallThumbnail']}" class = "cover-image" alt= "Image of the book cover of ${bookSuggestionName}"></a>
+                   </div>
+                </div>
               `);
                 }
             });
@@ -116,6 +120,7 @@ function scrollPage(){
 
 
 function handleNewSearch(){
+//change appends to html and these won't be needed
   $(".js-suggestions-header").empty();
   $(".js-book-suggestions").empty();
   $(".js-price-container").empty();
@@ -148,7 +153,7 @@ function handleSuggestionClick(tasteDiveObj){
     let synopsis = tasteDiveObj["Similar"]["Results"][clickedBook]["wTeaser"];
     let title = tasteDiveObj["Similar"]["Results"][clickedBook]["Name"];
 
-    $(".js-book-suggestions").append(
+    $(".js-book-suggestions").html(
       `<h2>${title}</h2>
       <p class= "synopsis">${synopsis}</p>`);
     scrollPage();//Need to adjust scroll position
