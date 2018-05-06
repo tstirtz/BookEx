@@ -133,16 +133,20 @@ function handleNewSearch(){
 function clearSearchInput(){
   $(".js-book-search-input").val('');
 }
-
-
-
+function showLoadIndicator(){
+  console.log("show load indicator called");
+    $(".load-indicator").prop('hidden', false);
+}
+function hideLoadIndicator(){
+    $(".load-indicator").prop('hidden', true);
+}
 
 function handleSuggestionClick(tasteDiveObj){
   //book suggestion or title link is clicked
   $(".js-book-suggestions").on('click', "a", function(){
 
     handleNewSearch();
-
+    showLoadIndicator();
     let clickedBook = parseInt($(this).attr("class")); //changes class attribute type to number to be used as an index
     console.log(tasteDiveObj);
 
@@ -291,7 +295,7 @@ function handleBuyButton(index){
   //on up click take user to Purchase URL
   $('.js-sale-info').on('click', `.js-purchase-book-${index}`, function(){
     let offerId = $(this).attr("id");
-        $(".load-indicator").prop('hidden', false);
+        showLoadIndicator();
       cartCreateAWSRequest(offerId, index);
   });
 }
@@ -380,6 +384,7 @@ AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Con
     },
     success: function(requestObj){
       fn(requestObj);
+      hideLoadIndicator();
     }
   });
 
