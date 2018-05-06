@@ -1,4 +1,9 @@
-
+:root {
+    --main-bg-color: white;
+    --main-button-color: #6D7993;
+    --secondary-bg-color: #E9E9E9;
+    --gradient: rgba(115, 140, 166, .2);
+}
 html{
   height: 100%;
   width: 100%;
@@ -12,7 +17,7 @@ body{
 }
 
 .main-container{
-  background-color: rgba(255, 236, 170, .2);
+  background-color: var(--main-bg-color);
   /* padding-bottom: 30px; */
 }
 
@@ -24,10 +29,11 @@ body{
   height: 100%;
   background:
   linear-gradient(
-    rgba(115, 140, 166, .2),
-    rgba(115, 140, 166, .2)
+    var(--gradient),
+    var(--gradient)
      ),
   url("https://images.pexels.com/photos/159697/book-reading-library-literature-159697.jpeg?w=940&h=650&auto=compress&cs=tinysrgb");
+  background-attachment: fixed;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
@@ -132,7 +138,7 @@ fieldset{
   height: 290px;
   padding: 10px;
   /* border-bottom: 1px solid #728CA6; */
-  background-color: rgba(128, 161, 193, .2);
+  background-color: var(--secondary-bg-color);
   box-shadow: 2px 2px 15px grey;
 }
 
@@ -154,12 +160,11 @@ fieldset{
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
-    margin: 35px 15px 0px 15px;
+    margin: 0px 15px 0px 15px;
     width: 150px;
     height: auto;
     padding: 10px;
     padding-bottom: 15px;
-    border-bottom: 1px solid #728CA6;
 }
 
 .book-suggestions{
@@ -183,12 +188,12 @@ fieldset{
   height: 50px;
   width: 80%;
   margin: 30px auto 10px auto;
-  border-bottom: 1px solid #365872;
+  border-bottom: 2px solid var(--main-button-color);
 }
 
 .book-suggestions h2{
   margin-top: 50px;
-  border-bottom: 1px solid #365872;
+  border-bottom: 1px solid var(--main-button-color);
   font-family: 'Vollkorn', serif;
 }
 
@@ -209,15 +214,15 @@ h3{
   text-align: center;
   margin: 25px;
   padding-bottom: 15px;
-  border-bottom: 2px solid #365872;
+  border-bottom: 2px solid var(--main-button-color);
 }
 
 .purchase-button{
   cursor: pointer;
   height: 20px;
-  border: 1px solid #365872;
+  border: 1px solid var(--main-button-color);
   border-radius: 3px;
-  background-color: #365872;
+  background-color: var(--main-button-color);
   text-align: center;
   box-shadow: 3px 3px 7px grey;
 }
@@ -227,6 +232,9 @@ h3{
   padding: 4.5px;
   color: white;
   font-size: 12px;
+}
+.purchase-button:hover{
+  background-color: #4c5467;
 }
 
 .price-container{
@@ -239,9 +247,12 @@ h3{
   justify-content: center;
   margin: 10px 0px 10px 0px;
   padding-bottom: 5px;
-  border-bottom: 1px solid #728CA6;
+  border-bottom: 1px solid var(--main-button-color);
   font-size: 14px;
 }
+/* .individual-price-info:nth-child(even){
+  background-color: rgba(255, 227, 128, .2);
+} */
 
 .individual-price-info div{
   display: inline-block;
