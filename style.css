@@ -133,6 +133,7 @@ fieldset{
   padding: 10px;
   /* border-bottom: 1px solid #728CA6; */
   background-color: rgba(128, 161, 193, .2);
+  box-shadow: 2px 2px 15px grey;
 }
 
 .result-item > a{
@@ -218,6 +219,7 @@ h3{
   border-radius: 3px;
   background-color: #365872;
   text-align: center;
+  box-shadow: 3px 3px 7px grey;
 }
 
 .purchase-button a{
