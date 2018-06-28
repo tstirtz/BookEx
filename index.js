@@ -103,17 +103,14 @@ function handleSearchButton(){
 
 
 function scrollPage(){
-    console.log("outside of setTimeout");
-
-        //calculate height of start page
-        let scrollPosition = $('.start-page').height();
-        //scroll to position equal to height of starting page
-        console.log("scroll page called", scrollPosition);
-        window.scroll({
-            top: scrollPosition,
-            left: 0,
-            behavior: "smooth"
-    });
+  //calculate height of start page
+  let scrollPosition = $('.start-page').height();
+  //scroll to position equal to height of starting page
+  window.scroll({
+      top: scrollPosition,
+      left: 0,
+      behavior: "smooth"
+  });
 }
 
 
