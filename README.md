@@ -1,4 +1,5 @@
-# BookEx [https://tstirtz.github.io/BookEx/](https://tstirtz.github.io/BookEx/)
+# BookEx 
+[https://tstirtz.github.io/BookEx/](https://tstirtz.github.io/BookEx/)
 
 ## App Summary
   * The user inputs the title of a book that they like. 
