@@ -23,29 +23,18 @@ function headerTypeWriter(){
 
 
 function handleSearchButton(){
-
-  console.log("start of handleSearchButton working");
-
   $(".js-search-button").on("click", function(event){
     event.preventDefault();
-    console.log("click function working");
-
     handleNewSearch();
     let searchInputValue= $(this).prev().val();
 
-    console.log(searchInputValue);
-
-
-
     requestFromTasteKid(searchInputValue, function(json){
-      console.log(json);
 
       if(json.Similar.Results.length === 0){
         $(".start-page-container").append(`<p class= "error-message">Sorry, we could't find anything related to "${searchInputValue}". Check spelling or try another book.</p>`);
       }else {
         $('.js-main').prop('hidden', false);
         $(".js-suggestions-header").prepend(`<h2>Books related to "${searchInputValue}"</h2>`);
-        console.log(json.Similar.Results);
 
         handleSuggestionClick(json);
 
@@ -55,13 +44,9 @@ function handleSearchButton(){
           const bookSynopsis = result.wTeaser; //wTeaser is the book synopsis
           const removeComma = bookSuggestionName.replace(/\'/, '');
           const encBookName = encodeURIComponent(removeComma);
-          console.log(index);
-
-          console.log(encBookName);
 
           requestFromGoogleBooks(bookSuggestionName, function(resultObj){
 
-            console.log(resultObj);
             //if this is the last item then scroll page after it is loaded
             if(index === resultItems.length - 1 ){
                 $(".js-book-suggestions").append(
@@ -131,7 +116,6 @@ function clearSearchInput(){
   $(".js-book-search-input").val('');
 }
 function showLoadIndicator(){
-  console.log("show load indicator called");
     $(".load-indicator").prop('hidden', false);
 }
 function hideLoadIndicator(){
@@ -145,8 +129,6 @@ function handleSuggestionClick(tasteDiveObj){
     handleNewSearch();
     showLoadIndicator();
     let clickedBook = parseInt($(this).attr("class")); //changes class attribute type to number to be used as an index
-    console.log(tasteDiveObj);
-
     let clickedEncodedTitle = $(this).attr("id");//get ID value, which is the encoded title, of the clicked links to be passed
 
     requestFromAmazonProdAdd(clickedEncodedTitle, function(responseObj){
@@ -308,7 +290,7 @@ function requestFromTasteKid(searchVal, callback){
     dataType: "jsonp",
     success: callback,
     error: function(jqXHRObject, typeOfError){
-      console.log("Taste Dive error message: " + typeOfError)
+      console.log("Taste Dive error message: " + typeOfError);
       $(".start-page-container").append(`<div class= "error-message">Sorry there was an error from server, please try again.</div>`);
     },
     data:{
@@ -422,14 +404,8 @@ AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Ite
        'Access-Control-Allow-Origin': '*'
     },
     success: function(requestData){
-          console.log(requestData);
-
           let amazonPurchaseURL = requestData.getElementsByTagName("PurchaseURL")[0]['textContent'];
-
-          console.log(amazonPurchaseURL);
-
           $(`.js-purchase-book-${index}`).attr("href", `${amazonPurchaseURL}`);
-
           window.location.href = amazonPurchaseURL;
     }
   });
