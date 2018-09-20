@@ -169,7 +169,7 @@ function requestToAmazonForUsedPrices(pricesUrl){
   //when book suggestion is clicked make call to amazon offer listing url api
 
   $.ajax({
-    url: "https://rift-lycra.glitch.me/postmedata",
+    url: "https://handy-scarf.glitch.me/postmedata",
     type: 'GET',
     data: {url: pricesUrl},
     success: function(data){
@@ -355,7 +355,7 @@ AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Con
 
 
   $.ajax({
-    url: "https://rift-lycra.glitch.me/givemedata",
+    url: "https://handy-scarf.glitch.me/givemedata",
     dataType: "xml",
     data: { url: awsUrl },
     headers:{
@@ -397,7 +397,7 @@ AWSAccessKeyId=${keys.amazonWebServicesAccessKeyId}&AssociateTag=tswebdev-20&Ite
 
 
   $.ajax({
-    url: "https://rift-lycra.glitch.me/givemedata",
+    url: "https://handy-scarf.glitch.me/givemedata",
     dataType: "xml",
     data: { url: awsCartCreateUrl },
     headers:{
